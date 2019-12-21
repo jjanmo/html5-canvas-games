@@ -6,11 +6,33 @@
         <meta http-equiv="X-UA-Compatible" content="ie=edge" />
         <title>GUGUDAN GAME</title>
         <link rel="stylesheet" href="gugudan.css" />
+        <link href="https://fonts.googleapis.com/css?family=Jua&display=swap" rel="stylesheet" />
     </head>
     <body>
         <div class="wrapper">
-            <div class="setContainer"></div>
-            <div class="gameContainer"></div>
+            <h1>구구단을 맞춰라</h1>
+            <div class="readyContainer">
+                <div class="btnDiv"><button type="button" class="button startBtn">START GAME</button></div>
+            </div>
+            <div class="gameContainer">
+                <div class="scoreContainer">
+                    <div class="progressbar">
+                        <progress value="20" max="100"></progress>
+                    </div>
+                    <div>
+                        <div class="td right">O : 1</div>
+                        <div class="td wrong">X : 2</div>
+                    </div>
+                </div>
+                <div class="quizContainer">
+                    <div class="problem"><span>4</span><span> * </span>5<span></span> = ?</div>
+                    <input class="answer" type="text" />
+                </div>
+                <div class="resultContainer">
+                    <div class="result"></div>
+                    <div class="btnDiv"><button type="button" class="button nextBtn">NEXT</button></div>
+                </div>
+            </div>
         </div>
     </body>
     <script src="gugudan.js"></script>

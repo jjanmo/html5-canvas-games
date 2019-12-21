@@ -1,0 +1,121 @@
+* {
+    margin: 0;
+    padding: 0;
+    border: 0;
+}
+
+body {
+    color: white;
+    font-family: "Jua", sans-serif;
+}
+.wrapper {
+    width: 500px;
+    height: 600px;
+    margin: auto;
+    border-radius: 15px;
+    background-color: #17202a;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
+    text-align: center;
+}
+
+h1 {
+    padding: 20px;
+    font-size: 55px;
+}
+
+.readyContainer {
+    width: 90%;
+    padding-bottom: 20px;
+    margin: auto;
+}
+.button {
+    all: unset;
+    width: 200px;
+    height: 35px;
+    border-radius: 10px;
+    padding: 5px;
+    font-size: 30px;
+    vertical-align: center;
+    line-height: 38px;
+}
+
+.button:hover {
+    opacity: 0.7;
+}
+.button:active {
+    transform: scale(0.9);
+    transition: all 0.1s ease-in-out;
+}
+
+.startBtn {
+    background-color: #2e86c1;
+}
+.nextBtn {
+    background-color: #8e44ad;
+}
+
+.gameContainer {
+    width: 90%;
+    height: 65%;
+    margin: 20px 0 20px;
+    /* border: 1px solid white; */
+    padding: 10px;
+    margin: auto;
+    border-radius: 10px;
+    background-color: #2c3e50;
+}
+
+.scoreContainer {
+    background-color: #27ae60;
+    width: 80%;
+    height: 100px;
+    border: 1px solid white;
+    margin: auto;
+}
+
+.progressbar {
+    /* width: 80%; */
+    margin: 10px;
+}
+
+progress {
+}
+
+.td {
+    display: inline-block;
+    width: 120px;
+    height: 40px;
+    border: 1px solid #b2bec3;
+    text-align: center;
+    font-size: 30px;
+}
+
+.quizContainer {
+    width: 80%;
+    height: 50%;
+    /* background-color: #d35400; */
+    margin: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+.problem {
+    font-size: 45px;
+    text-align: center;
+}
+.answer {
+    width: 200px;
+    /* padding: 10px; */
+    background-color: transparent;
+    border-bottom: solid 3px white;
+    outline: none;
+    font-size: 30px;
+    text-align: center;
+    color: white;
+}
+.resultContainer {
+    width: 80%;
+    margin: auto;
+    padding-top: 20px;
+}
