@@ -51,9 +51,14 @@ h1 {
     background-color: #2e86c1;
 }
 .nextBtn {
+    width: 100px;
     background-color: #8e44ad;
+    margin-right: 25px;
 }
-
+.quitBtn {
+    width: 100px;
+    background-color: #eb4d4b;
+}
 .gameContainer {
     width: 90%;
     height: 65%;
@@ -66,19 +71,43 @@ h1 {
 }
 
 .scoreContainer {
-    background-color: #27ae60;
+    /* background-color: #27ae60; */
     width: 80%;
     height: 100px;
-    border: 1px solid white;
+    /* border: 1px solid white; */
     margin: auto;
 }
 
-.progressbar {
-    /* width: 80%; */
-    margin: 10px;
+.progressbarDiv {
+    margin: 20px 0 30px;
 }
 
-progress {
+.progressbar {
+    width: 80%;
+    height: 20px;
+    background-color: #95a5a6;
+    margin: auto;
+    border-radius: 20px;
+}
+
+.progressbar > div {
+    width: 0;
+    height: 100%;
+    background-color: #f9ca24;
+    animation: progressBar 2s ease-in-out;
+}
+
+/* @keyframes progressBar {
+    from {
+        width: 0;
+    }
+    to {
+        width: 80%;
+    }
+} */
+
+.scoreDiv {
+    margin: 10px 0 10px;
 }
 
 .td {
