@@ -97,20 +97,11 @@ h1 {
     animation: progressBar 2s ease-in-out;
 }
 
-/* @keyframes progressBar {
-    from {
-        width: 0;
-    }
-    to {
-        width: 80%;
-    }
-} */
-
 .scoreDiv {
     margin: 10px 0 10px;
 }
 
-.td {
+.scoreTd {
     display: inline-block;
     width: 120px;
     height: 40px;
@@ -121,7 +112,7 @@ h1 {
 
 .quizContainer {
     width: 80%;
-    height: 50%;
+    height: 40%;
     /* background-color: #d35400; */
     margin: auto;
     display: flex;
@@ -142,9 +133,13 @@ h1 {
     font-size: 30px;
     text-align: center;
     color: white;
+    /* margin-top: 5px; */
 }
 .resultContainer {
     width: 80%;
+    height: 30px;
     margin: auto;
-    padding-top: 20px;
+    padding-bottom: 30px;
+    font-size: 30px;
+    color: #27ae60;
 }

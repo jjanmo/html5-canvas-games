@@ -22,16 +22,18 @@
                         </div>
                     </div>
                     <div class="scoreDiv">
-                        <div class="td right">O : 1</div>
-                        <div class="td wrong">X : 2</div>
+                        <div class="scoreTd right" id="right">0</div>
+                        <div class="scoreTd wrong" id="wrong">0</div>
                     </div>
                 </div>
                 <div class="quizContainer">
-                    <div class="problem"><span>4</span><span> * </span>5<span></span> = ?</div>
-                    <input class="answer" type="text" />
+                    <div class="problem"><span id="firstNum"></span><span> * </span><span id="secondNum"></span> = ?</div>
+                    <form id="inputForm">
+                        <input class="answer" type="text" />
+                    </form>
                 </div>
                 <div class="resultContainer">
-                    <div class="result"></div>
+                    <div class="result" id="result"></div>
                 </div>
                 <div class="btnContainer">
                     <div class="btnDiv">
