@@ -64,17 +64,24 @@ function paintResult(win) {
 
 function checkNumber(e) {
     e.preventDefault();
+    //game start 전에 입력방지
     if (!start) {
         input.value = "";
         return;
     }
+
     const inputValue = Number(input.value);
-    clearInterval(progressbarAction);
+    //숫자외의 입력값 방지
+    if (isNaN(inputValue)) {
+        input.value = "";
+        return;
+    }
     input.value = "";
     let win = false;
     win = inputValue === answer ? true : false;
     paintScore(win);
     paintResult(win);
+    clearInterval(progressbarAction);
     nextBtn.click();
 }
 
