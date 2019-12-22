@@ -18,16 +18,17 @@
                 <div class="scoreContainer">
                     <div class="progressbarDiv">
                         <div class="progressbar">
-                            <div></div>
+                            <div id="bar"></div>
                         </div>
                     </div>
                     <div class="scoreDiv">
-                        <div class="scoreTd right" id="right">0</div>
-                        <div class="scoreTd wrong" id="wrong">0</div>
+                        <div class="scoreTd right">&nbsp;: <span id="right">0</span></div>
+                        <div class="scoreTd wrong">&nbsp;: <span id="wrong">0</span></div>
                     </div>
                 </div>
                 <div class="quizContainer">
-                    <div class="problem"><span id="firstNum"></span><span> * </span><span id="secondNum"></span> = ?</div>
+                    <div class="before">여기서 퀴즈가 나옵니다</div>
+                    <div class="problem hide"><span id="firstNum"></span><span> * </span><span id="secondNum"></span> = ?</div>
                     <form id="inputForm">
                         <input class="answer" type="text" />
                     </form>
@@ -38,7 +39,7 @@
                 <div class="btnContainer">
                     <div class="btnDiv">
                         <button type="button" class="button nextBtn">NEXT</button>
-                        <button type="button" class="button quitBtn">QUIT</button>
+                        <!-- <button type="button" class="button quitBtn">QUIT</button> -->
                     </div>
                 </div>
             </div>

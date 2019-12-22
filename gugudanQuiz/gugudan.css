@@ -40,7 +40,7 @@ h1 {
 }
 
 .button:hover {
-    opacity: 0.7;
+    opacity: 0.8;
 }
 .button:active {
     transform: scale(0.9);
@@ -53,12 +53,12 @@ h1 {
 .nextBtn {
     width: 100px;
     background-color: #8e44ad;
-    margin-right: 25px;
+    /* margin-right: 25px; */
 }
-.quitBtn {
+/* .quitBtn {
     width: 100px;
     background-color: #eb4d4b;
-}
+} */
 .gameContainer {
     width: 90%;
     height: 65%;
@@ -103,11 +103,23 @@ h1 {
 
 .scoreTd {
     display: inline-block;
-    width: 120px;
+    width: 150px;
     height: 40px;
-    border: 1px solid #b2bec3;
+    border: 2px dotted #b2bec3;
     text-align: center;
     font-size: 30px;
+    border-radius: 5px;
+}
+
+.right:before {
+    content: "O";
+    color: #fa983a;
+    font-size: 35px;
+}
+.wrong:before {
+    content: "X";
+    color: #82ccdd;
+    font-size: 35px;
 }
 
 .quizContainer {
@@ -120,6 +132,12 @@ h1 {
     justify-content: center;
     flex-direction: column;
 }
+
+.before {
+    color: #fad390;
+    font-size: 30px;
+}
+
 .problem {
     font-size: 45px;
     text-align: center;
@@ -141,5 +159,15 @@ h1 {
     margin: auto;
     padding-bottom: 30px;
     font-size: 30px;
+}
+
+.rightColor {
     color: #27ae60;
+}
+.wrongColor {
+    color: #eb2f06;
+}
+
+.hide {
+    display: none;
 }

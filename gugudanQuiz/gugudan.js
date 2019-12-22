@@ -8,19 +8,36 @@ const btnContainer = document.querySelector(".btnContainer");
 const nextBtn = btnContainer.querySelector(".nextBtn");
 const quitBtn = btnContainer.querySelector(".quitBtn");
 
+//score span
+const right = document.querySelector("#right");
+const wrong = document.querySelector("#wrong");
+//result div
+const result = document.querySelector("#result");
+
 let answer;
+let start = false;
 
 function startGame() {
+    //초기화하는 함수필요
     startBtn.addEventListener("click", makeQuiz);
+}
+
+function nextGame() {
+    nextBtn.addEventListener("click", makeQuiz);
 }
 
 function inputNumber() {
     inputForm.addEventListener("submit", checkNumber);
 }
 
+function reset() {
+    //다시 시작할 때 필요(점수 및 결과 초기화)
+    right.innerHTML = 0;
+    wrong.innerHTML = 0;
+    result.innerHTML = "";
+}
+
 function paintScore(win) {
-    const right = document.querySelector("#right");
-    const wrong = document.querySelector("#wrong");
     if (win) {
         let rightScore = Number(right.innerHTML);
         rightScore++;
@@ -33,22 +50,52 @@ function paintScore(win) {
 }
 
 function paintResult(win) {
-    const result = document.querySelector("#result");
     result.innerHTML = win ? "맞았습니다." : "틀렸습니다.";
+    if (win) {
+        result.classList.add("rightColor");
+        result.classList.remove("wrongColor");
+    } else {
+        result.classList.add("wrongColor");
+        result.classList.remove("rightColor");
+    }
 }
 
 function checkNumber(e) {
     e.preventDefault();
     const inputValue = Number(input.value);
+    input.value = "";
     let win = false;
     win = inputValue === answer ? true : false;
     paintScore(win);
     paintResult(win);
+    nextBtn.click();
 }
 
-function startProgressbar() {}
+function startProgressbar() {
+    const bar = document.querySelector("#bar");
+    let width = 0;
+    const action = setInterval(function() {
+        if (width >= 100) {
+            paintResult(false);
+            paintScore(false);
+            nextBtn.click();
+            clearInterval(action);
+        } else {
+            width++;
+            bar.style.width = `${width}%`;
+        }
+    }, 15);
+}
 
-function makeQuiz() {
+function makeQuiz(e) {
+    const targetName = e.target.className;
+    // console.log(targetName);
+    checkNext(targetName);
+    if (!start) return;
+    const before = document.querySelector(".before");
+    const problem = document.querySelector(".problem");
+    before.classList.add("hide");
+    problem.classList.remove("hide");
     const firstNumber = document.querySelector("#firstNum");
     const secondNumber = document.querySelector("#secondNum");
     const number1 = Math.ceil(Math.random() * 9);
@@ -56,12 +103,24 @@ function makeQuiz() {
     firstNumber.innerHTML = number1;
     secondNumber.innerHTML = number2;
     answer = number1 * number2;
+    startProgressbar();
     input.focus();
+}
+
+function checkNext(targetName) {
+    //start하기전에 next를 누르는것 방지 : 처음시작을 체크
+    if (!start) {
+        start = targetName.includes("startBtn") ? true : false;
+    } else {
+        //중간에 start button을 누르는 경우
+        if (targetName.includes("startBtn")) reset();
+    }
 }
 
 function init() {
     startGame();
     inputNumber();
+    nextGame();
 }
 
 init();
