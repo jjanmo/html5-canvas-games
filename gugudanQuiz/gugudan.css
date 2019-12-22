@@ -55,10 +55,10 @@ h1 {
     background-color: #8e44ad;
     /* margin-right: 25px; */
 }
-/* .quitBtn {
+.quitBtn {
     width: 100px;
     background-color: #eb4d4b;
-} */
+}
 .gameContainer {
     width: 90%;
     height: 65%;
@@ -95,6 +95,7 @@ h1 {
     height: 100%;
     background-color: #f9ca24;
     animation: progressBar 2s ease-in-out;
+    border-radius: 20px;
 }
 
 .scoreDiv {

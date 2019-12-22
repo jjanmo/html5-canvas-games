@@ -13,21 +13,23 @@ const right = document.querySelector("#right");
 const wrong = document.querySelector("#wrong");
 //result div
 const result = document.querySelector("#result");
+//progress bar
+const bar = document.querySelector("#bar");
 
 let answer;
 let start = false;
 let progressbarAction;
 
-function startGame() {
-    startBtn.addEventListener("click", makeQuiz);
-}
-
-function nextGame() {
-    nextBtn.addEventListener("click", makeQuiz);
-}
-
-function inputNumber() {
-    inputForm.addEventListener("submit", checkNumber);
+function quit() {
+    reset(); //점수 및 결과 초기화용
+    const before = document.querySelector(".before");
+    const problem = document.querySelector(".problem");
+    before.classList.remove("hide");
+    problem.classList.add("hide");
+    //progressbar 초기화
+    clearInterval(progressbarAction);
+    bar.style.width = "0%";
+    start = false;
 }
 
 function reset() {
@@ -62,6 +64,10 @@ function paintResult(win) {
 
 function checkNumber(e) {
     e.preventDefault();
+    if (!start) {
+        input.value = "";
+        return;
+    }
     const inputValue = Number(input.value);
     clearInterval(progressbarAction);
     input.value = "";
@@ -73,8 +79,7 @@ function checkNumber(e) {
 }
 
 function startProgressbar() {
-    const bar = document.querySelector("#bar");
-    let width = 0;
+    let width = 0; //progressbar scalewidth
     progressbarAction = setInterval(function() {
         if (width >= 100) {
             clearInterval(progressbarAction);
@@ -85,7 +90,7 @@ function startProgressbar() {
             width++;
             bar.style.width = `${width}%`;
         }
-    }, 200);
+    }, 100);
 }
 
 function makeQuiz(e) {
@@ -119,10 +124,27 @@ function checkNext(targetName) {
     }
 }
 
+function startGame() {
+    startBtn.addEventListener("click", makeQuiz);
+}
+
+function nextGame() {
+    nextBtn.addEventListener("click", makeQuiz);
+}
+
+function quitGame() {
+    quitBtn.addEventListener("click", quit);
+}
+
+function inputNumber() {
+    inputForm.addEventListener("submit", checkNumber);
+}
+
 function init() {
     startGame();
     inputNumber();
     nextGame();
+    quitGame();
 }
 
 init();
