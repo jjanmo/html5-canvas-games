@@ -16,9 +16,9 @@ const result = document.querySelector("#result");
 
 let answer;
 let start = false;
+let progressbarAction;
 
 function startGame() {
-    //초기화하는 함수필요
     startBtn.addEventListener("click", makeQuiz);
 }
 
@@ -63,6 +63,7 @@ function paintResult(win) {
 function checkNumber(e) {
     e.preventDefault();
     const inputValue = Number(input.value);
+    clearInterval(progressbarAction);
     input.value = "";
     let win = false;
     win = inputValue === answer ? true : false;
@@ -74,20 +75,21 @@ function checkNumber(e) {
 function startProgressbar() {
     const bar = document.querySelector("#bar");
     let width = 0;
-    const action = setInterval(function() {
+    progressbarAction = setInterval(function() {
         if (width >= 100) {
+            clearInterval(progressbarAction);
             paintResult(false);
             paintScore(false);
             nextBtn.click();
-            clearInterval(action);
         } else {
             width++;
             bar.style.width = `${width}%`;
         }
-    }, 15);
+    }, 200);
 }
 
 function makeQuiz(e) {
+    clearInterval(progressbarAction);
     const targetName = e.target.className;
     // console.log(targetName);
     checkNext(targetName);
