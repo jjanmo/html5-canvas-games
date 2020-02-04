@@ -1,45 +1,52 @@
 * {
     padding: 0;
     margin: 0;
+    user-select: none;
 }
+
 body {
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell,
-        "Open Sans", "Helvetica Neue", sans-serif;
-    color: white;
-    text-align: center;
+    font-family: "Gamja Flower", cursive;
 }
 
 .wrapper {
-    background-color: #2c3e50;
+    background-color: #2d3436;
     width: 700px;
     height: 600px;
     border-radius: 15px;
     box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
     margin: auto;
-    /* display: flex;
-    align-items: center;
-    justify-content: center; */
-}
-h1 {
-    width: 500px;
-    margin: auto;
-    padding: 30px;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
 }
 
-.buttonContainer {
-    margin: auto;
-    width: 100%;
+h1 {
+    color: white;
+    text-align: center;
+    font-size: 4rem;
+}
+
+.button-container {
+    margin: 0 auto 0;
+    width: 90%;
     height: 10%;
+    padding: 10px;
+    font-size: 35px;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    text-align: center;
 }
 
 .button {
     all: unset;
     width: 180px;
     height: 40px;
-    font-size: 25px;
+    font-size: 30px;
     text-align: center;
     border-radius: 10px;
-    margin: 0 10px 0;
+    margin: auto;
+    padding: 5px;
+    color: white;
 }
 
 .button:active {
@@ -47,55 +54,84 @@ h1 {
     transition: all 0.1s ease-in-out;
 }
 
-.startBtn {
+.start-button {
     background-color: #0984e3;
 }
 
-.quitBtn {
+.quit-button {
     background-color: #ff7675;
 }
 
-.scoreContainer {
-    width: 100%;
-    height: 10%;
-    border: 1px solid white;
-    padding: 10px;
+.score-container {
+    width: 90%;
+    text-align: center;
+    margin: 0 auto 0;
 }
 
-.score {
-    display: inline-block;
-    width: 100px;
-    height: 50px;
-    margin: 0 20px 0;
-    border: 1px solid red;
-    font-size: 35px;
+.score-board {
+    width: 250px;
+    font-size: 80px;
+    border: solid 2px #b2bec3;
+    border-radius: 10px;
+    margin: 10px auto;
+    position: relative;
+    color: white;
 }
 
-.displayContainer {
-    width: 100%;
+.badge {
+    font-size: 30px;
+    background-color: #00b894;
+    border-radius: 5px;
+    padding: 0 5px 0;
+}
+
+#user-label {
+    position: absolute;
+    top: 30px;
+    left: -40px;
+}
+#computer-label {
+    position: absolute;
+    top: 30px;
+    right: -50px;
+}
+
+.chose-container {
+    position: relative;
+}
+
+.chose-container h2 {
+    text-align: center;
+    font-size: 40px;
+    color: white;
+    margin: 7px auto 7px;
+}
+.chose-inner-container {
     height: 25%;
-}
-.display {
-    display: inline-block;
-    width: 150px;
-    height: 150px;
-    border: 1px solid red;
+    display: grid;
+    grid-template-columns: repeat(3, 3fr);
+    grid-gap: 2rem;
+    text-align: center;
 }
 
-.resultContainer {
-    width: 100%;
-    height: 10%;
-    border: 1px solid red;
-}
-.userPickContainer {
-    height: 25%;
-}
-
-.pick {
-    display: inline-block;
-    width: 150px;
-    height: 150px;
-    border: 1px solid red;
+.chose {
+    width: 146px;
+    height: 146px;
+    border: solid #636e72 4px;
     margin: 20px;
-    border-radius: 75px;
+    border-radius: 73px;
+    cursor: pointer;
+    font-size: 28px;
+    color: white;
+    line-height: 20px;
+    margin: 20px auto;
+}
+
+.icon:hover {
+    color: #576574;
+}
+
+.icon:active {
+    transform: scale(0.9);
+    transition: all 0.1s ease-in-out;
 }
