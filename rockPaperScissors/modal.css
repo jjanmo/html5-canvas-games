@@ -1,8 +1,7 @@
 :root {
-    --modal--duration: 1s;
+    --modal--duration: 0.5s;
 }
 .modal {
-    display: none;
     position: fixed;
     z-index: 1;
     top: 0;
@@ -25,9 +24,17 @@
     animation-duration: var(--modal--duration);
 }
 
-.modal-content p,
 .modal-content h2 {
     margin: 10px;
+    font-size: 40px;
+}
+.modal-content p {
+    margin: 10px;
+    font-size: 30px;
+}
+
+.hidden {
+    display: none;
 }
 
 @keyframes modalopen {

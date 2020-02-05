@@ -9,9 +9,9 @@ body {
 }
 
 .wrapper {
-    background-color: #2d3436;
+    background-color: #dfe6e9;
     width: 700px;
-    height: 600px;
+    height: 500px;
     border-radius: 15px;
     box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
     margin: auto;
@@ -21,7 +21,7 @@ body {
 }
 
 h1 {
-    color: white;
+    color: #747d8c;
     text-align: center;
     font-size: 4rem;
 }
@@ -32,34 +32,28 @@ h1 {
     height: 10%;
     padding: 10px;
     font-size: 35px;
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
+    /* display: grid;
+    grid-template-columns: repeat(2, 1fr); */
     text-align: center;
 }
 
-.button {
+.restart-button {
     all: unset;
     width: 180px;
-    height: 40px;
+    height: 30px;
     font-size: 30px;
     text-align: center;
     border-radius: 10px;
     margin: auto;
     padding: 5px;
     color: white;
+    background-color: #0984e3;
+    line-height: 20px;
 }
 
-.button:active {
+.restart-button:active {
     transform: scale(0.9);
     transition: all 0.1s ease-in-out;
-}
-
-.start-button {
-    background-color: #0984e3;
-}
-
-.quit-button {
-    background-color: #ff7675;
 }
 
 .score-container {
@@ -80,21 +74,30 @@ h1 {
 
 .badge {
     font-size: 30px;
-    background-color: #00b894;
     border-radius: 5px;
     padding: 0 5px 0;
+    color: white;
 }
 
 #user-label {
     position: absolute;
+    background-color: #ff7675;
     top: 30px;
     left: -40px;
 }
 #computer-label {
     position: absolute;
+    background-color: #00b894;
     top: 30px;
     right: -50px;
 }
+
+.score-container > div:last-child {
+    color: #747d8c;
+}
+/* .score-board:last-child {
+    color: #747d8c;
+} */
 
 .chose-container {
     position: relative;
@@ -103,7 +106,7 @@ h1 {
 .chose-container h2 {
     text-align: center;
     font-size: 40px;
-    color: white;
+    color: #747d8c;
     margin: 7px auto 7px;
 }
 .chose-inner-container {
@@ -117,7 +120,7 @@ h1 {
 .chose {
     width: 146px;
     height: 146px;
-    border: solid #636e72 4px;
+    /* border: solid #636e72 4px; */
     margin: 20px;
     border-radius: 73px;
     cursor: pointer;
@@ -125,6 +128,10 @@ h1 {
     color: white;
     line-height: 20px;
     margin: 20px auto;
+}
+
+.icon {
+    vertical-align: bottom;
 }
 
 .icon:hover {
