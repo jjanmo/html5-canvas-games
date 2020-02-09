@@ -1,0 +1,102 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Sriracha', cursive;
+}
+
+.container {
+    text-align: center;
+    width: 100vw;
+    height: 100vh;
+}
+
+.stadium-container {
+    width: 100vw;
+    height: 100vh;
+    background: url(./image/bg.PNG) no-repeat center;
+}
+
+.header > h1 {
+    color: #2c3e50;
+}
+
+.start-button {
+    all: unset;
+    width: 100px;
+    height: 20px;
+    color: white;
+    background-color: #0984e3;
+    margin-top: 10px;
+    padding: 8px;
+    font-size: 20px;
+    line-height: 25px;
+    border-radius: 10px;
+    transition: all 0.3 ease-in-out;
+}
+
+.start-button:active {
+    transform: scale(0.9);
+}
+
+.inning-board {
+    margin-top: 10px;
+    font-size: 60px;
+    color: #2c3e50;
+}
+
+.score-board {
+    width: 400px;
+    height: 150px;
+    border: 1px solid red;
+    margin: auto;
+}
+
+.input {
+    width: 400px;
+    height: 150px;
+    border: 1px solid red;
+    margin: 10px auto;
+    display: grid;
+    grid-template-columns: repeat(3, 3fr);
+}
+
+.input-number {
+    width: 100px;
+    height: 130px;
+    border: 1px solid blue;
+    margin: auto;
+}
+
+.button-container {
+    width: 695px;
+    height: 100px;
+    background-color: #b2bec3;
+    display: grid;
+    grid-template-columns: repeat(6, 6fr);
+    position: absolute;
+    top: 549px;
+    left: 79px;
+    border-radius: 5px;
+}
+
+.button-container div {
+    width: 100px;
+    height: 40px;
+    background-color: #ecf0f1;
+    font-size: 30px;
+    line-height: 38px;
+    border-radius: 10px;
+    transition: all 0.3 ease-in-out;
+    margin: auto;
+}
+
+.button-container div:hover {
+    background-color: #636e72;
+}
+
+.button-container div:active {
+    transform: scale(0.9);
+}
