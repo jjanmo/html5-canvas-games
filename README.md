@@ -7,4 +7,6 @@
   - [DEMO](https://codepen.io/jjanmo/pen/abOogBM)
 
 ## 숫자야구게임
-  -[DEMO](https://codepen.io/jjanmo/pen/WNvrGex)
+  - [DEMO](https://codepen.io/jjanmo/pen/WNvrGex)
+  
+    > 숫자야구게임 안에서 background로 사용한 `baseball field` 부분은 CODEPEN의 [여기](https://codepen.io/AniG2017/pen/dZYeLQ)를 참고하였습니다.
