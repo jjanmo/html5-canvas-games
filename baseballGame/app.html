@@ -6,11 +6,9 @@
         <!-- awesome font -->
         <script src="https://kit.fontawesome.com/1433f86547.js" crossorigin="anonymous"></script>
         <!-- google font -->
-        <link
-            href="https://fonts.googleapis.com/css?family=Sriracha&display=swap"
-            rel="stylesheet"
-        />
+        <link href="https://fonts.googleapis.com/css?family=Sriracha&display=swap" rel="stylesheet" />
         <link rel="stylesheet" href="app.css" />
+        <link rel="stylesheet" href="modal.css" />
         <title>Baseball Game</title>
     </head>
     <body>
@@ -29,39 +27,84 @@
             </div>
         </div>
         <div class="container">
-            <div class="stadium-container">
+            <div class="stadium">
                 <div class="header">
                     <h1>NUMER BASEBALL GAME</h1>
-                    <button class="start-button">START</button>
-                    <div class="inning-board"><span id="inning">4</span>INNING</div>
                 </div>
-                <div class="score-board">
-                    <ul></ul>
+                <div class="score-board-container">
+                    <table class="score-board">
+                        <tr>
+                            <td>INNING</td>
+                            <td>1</td>
+                            <td>2</td>
+                            <td>3</td>
+                            <td>4</td>
+                            <td>5</td>
+                            <td>6</td>
+                            <td>7</td>
+                            <td>8</td>
+                            <td>9</td>
+                        </tr>
+                        <tr>
+                            <td>NUMBER</td>
+                            <td class="inputNumber"></td>
+                            <td class="inputNumber"></td>
+                            <td class="inputNumber"></td>
+                            <td class="inputNumber"></td>
+                            <td class="inputNumber"></td>
+                            <td class="inputNumber"></td>
+                            <td class="inputNumber"></td>
+                            <td class="inputNumber"></td>
+                            <td class="inputNumber"></td>
+                        </tr>
+                        <tr>
+                            <td>CHECK</td>
+                            <td class="score"></td>
+                            <td class="score"></td>
+                            <td class="score"></td>
+                            <td class="score"></td>
+                            <td class="score"></td>
+                            <td class="score"></td>
+                            <td class="score"></td>
+                            <td class="score"></td>
+                            <td class="score"></td>
+                        </tr>
+                    </table>
                 </div>
+
+                <div class="inning-board"><span id="inning">1</span> INNING</div>
+
                 <div class="input">
-                    <div class="input-number" id="first-number"></div>
-                    <div class="input-number" id="second-number"></div>
-                    <div class="input-number" id="third-number"></div>
+                    <div class="input-div"></div>
+                    <div class="input-div"></div>
+                    <div class="input-div"></div>
                 </div>
             </div>
             <div class="button-container">
-                <div class="first-row">1</div>
-                <div class="first-row">2</div>
-                <div class="first-row">3</div>
-                <div class="first-row">4</div>
-                <div class="first-row">5</div>
-                <div class="first-row">HIT</div>
-                <div class="secd-row">6</div>
-                <div class="secd-row">7</div>
-                <div class="secd-row">8</div>
-                <div class="secd-row">9</div>
-                <div class="secd-row">0</div>
-                <div class="secd-row">
-                    <i class="fas fa-backspace"></i>
+                <div class="buttons">
+                    <div id="1">1</div>
+                    <div id="2">2</div>
+                    <div id="3">3</div>
+                    <div id="4">4</div>
+                    <div id="5">5</div>
+                    <div id="hit">HIT</div>
+                    <div id="6">6</div>
+                    <div id="7">7</div>
+                    <div id="8">8</div>
+                    <div id="9">9</div>
+                    <div id="0">0</div>
+                    <div>
+                        <i class="fas fa-backspace" id="backspace"></i>
+                    </div>
                 </div>
+                <div class="msg"></div>
             </div>
         </div>
-
+        <div class="modal hidden">
+            <div class="modal-content">
+                <div class="result" id="result"></div>
+            </div>
+        </div>
         <script src="app.js"></script>
     </body>
 </html>

@@ -5,3 +5,6 @@
 
 ## 가위바위보
   - [DEMO](https://codepen.io/jjanmo/pen/abOogBM)
+
+## 숫자야구게임
+  -[DEMO](https://codepen.io/jjanmo/pen/WNvrGex)
