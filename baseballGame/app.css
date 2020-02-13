@@ -7,17 +7,82 @@ body {
     font-family: 'Sriracha', cursive;
 }
 
+/* field background */
+.field {
+    width: 400px;
+    height: 400px;
+    background-color: green;
+    border-top-left-radius: 400px;
+    margin: 80px auto;
+    transform: rotate(45deg);
+    position: relative;
+}
+.foul-lines {
+    width: 388px;
+    height: 388px;
+    border-right: 2px solid white;
+    border-bottom: 2px solid white;
+}
+.infield-container {
+    position: absolute;
+    left: 100px;
+    top: 100px;
+}
+.infield {
+    width: 250px;
+    height: 250px;
+    border-top-left-radius: 100%;
+    position: absolute;
+    left: 37.5px;
+    top: 37.5px;
+    background-color: #86592d;
+}
+.base {
+    width: 10px;
+    height: 10px;
+    background-color: white;
+    position: absolute;
+    z-index: 10;
+}
+.first {
+    left: 265px;
+    top: 90px;
+}
+.second {
+    left: 130px;
+    top: 130px;
+    transform: rotate(45deg);
+}
+.third {
+    left: 90px;
+    top: 265px;
+}
+.home {
+    left: 265px;
+    top: 265px;
+}
+.pitchers-mound {
+    width: 20px;
+    height: 10px;
+    background-color: white;
+    transform: rotate(135deg);
+    position: absolute;
+    top: 200px;
+    left: 195px;
+    z-index: 10;
+}
+
 .container {
     text-align: center;
     width: 100vw;
     height: 100vh;
 }
 
-.stadium-container {
+/* .stadium-container {
     width: 100vw;
     height: 100vh;
     background: url(./image/bg.PNG) no-repeat center;
-}
+} */
 
 .header > h1 {
     color: #2c3e50;
