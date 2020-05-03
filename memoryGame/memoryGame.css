@@ -68,7 +68,7 @@
 .scene {
     width: 100px;
     height: 120px;
-    perspective: 200px;
+    perspective: 280px;
 }
 
 .card {
@@ -76,7 +76,7 @@
     height: 100%;
     position: relative;
     transform-style: preserve-3d;
-    transition: transform 1s ease-in-out;
+    transition: transform 0.6s ease-in-out;
 }
 
 .cardface {
@@ -91,7 +91,7 @@
     background-image: url('image/social-media-icons.png');
     background-repeat: no-repeat;
     background-size: 350%;
-    background-position: 0 0;
+    /* background-position: 0 0; */
 }
 
 .back {
@@ -109,6 +109,6 @@
     /* transform: rotateY(180deg); */
 }
 
-.card.isFliped {
+.card.isFlipped {
     transform: rotateY(180deg);
 }
