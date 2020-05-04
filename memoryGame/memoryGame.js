@@ -4,11 +4,13 @@
 // });
 
 const startBtn = document.getElementById('js-start-button');
+const timerDiv = document.getElementById('js-timer');
 const cardBoard = document.getElementById('js-card-board');
 let flipCount = 0;
 let flippedCards = [];
 let start = false;
-
+let timer;
+let minute, second;
 
 let cardObjInArray = []; //card object를 담는 배열;
 /*
@@ -17,6 +19,40 @@ card object
 - posY
 - isFlipped 
 */
+
+function getTimer() {
+    minute = 0;
+    second = 0;
+    // const startTime = timer.textContent;
+    // console.log(startTime);
+    timer = setInterval(function () {
+        //data
+        second++;
+        if (second > 59) {
+            minute++;
+            second = 0;
+        }
+        //render
+        let = result = '';
+        if (minute < 10) {
+            if (second < 10) {
+                result = `0${minute}:0${second}`;
+            }
+            else if (second < 60) {
+                result = `0${minute}:${second}`;
+            }
+        }
+        else if (minute < 60) {
+            if (second < 10) {
+                result = `${minute}:0${second}`;
+            }
+            else if (second < 60) {
+                result = `${minute}:${second}`;
+            }
+        }
+        document.getElementById('js-timer').textContent = result;
+    }, 1000)
+}
 
 
 function readyGame(cards) { //시작 전에 전체적으로 보여주는 단계
@@ -83,7 +119,9 @@ function checkFlippedCards() {
         firstCardObj.isFlipped = true;
         secondCardObj.isFlipped = true;
         if (checkGameEnd()) {
-            alert("게임종료");
+            clearInterval(timer);
+            const score = timerDiv.textContent;
+            alert(score);
             //걸린 시간 체크
         }
     }
@@ -148,12 +186,21 @@ function paintBoard() {
 };
 
 function handleGameStart(e) {
+    //타이머 초기화
+    clearInterval(timer);
+    minute = 0;
+    second = 0;
+    timerDiv.textContent = `00:00`;
+
     makeCardObject();
     const cards = paintBoard();
     readyGame(cards);
     setTimeout(function () {
         cards.forEach(card => card.addEventListener('click', handleClick));
     }, 2000);
+    setTimeout(function () {
+        getTimer();
+    }, 1000);
 }
 
 function init() {
