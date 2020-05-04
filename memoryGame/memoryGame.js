@@ -3,8 +3,11 @@
 //     card.classList.toggle("isFliped");
 // });
 
-// const cards = document.querySelectorAll('.card');
+const startBtn = document.getElementById('js-start-button');
 const cardBoard = document.getElementById('js-card-board');
+let flipCount = 0;
+let flippedCards = [];
+
 const cardObjInArray = []; //card object를 담는 배열;
 /*
 card object
@@ -15,44 +18,86 @@ card object
 
 
 
-function suffleCards(candidate) {
+function suffleCards(notShuffledCards) {
     const CARDS_LENGTH = 16;
     for (let i = 0; i < CARDS_LENGTH; i++) {
-        cardObjInArray.push(candidate.splice(Math.floor(Math.random() * (16 - i)), 1)[0]);
+        cardObjInArray.push(notShuffledCards.splice(Math.floor(Math.random() * (16 - i)), 1)[0]);
+        cardObjInArray[i].id = String(Date.now() * (i + 1)); //id부여
     }
     // console.log(cardObjInArray);
 }
 
+function copyCardDoubled(candidate) {
+    const newCandidate = [];
+    candidate.forEach(card => {
+        const newCard = Object.assign({}, card);
+        newCandidate.push(card);
+        newCandidate.push(newCard);
+    });
+    return newCandidate;
+}
 
-function makeCardObject() {//parametr content에 따라서 들어가야할 카드그림이 달라짐
+function makeCardObject() {//parametr content에 따라서 들어가야 할 카드그림이 달라짐
     //socialmedia icons 9개 -> basic 8개 뽑기
     const socialmediaCards = [
-        { x: '-20px', y: '-9px', isFlipped: false },
-        { x: '-20px', y: '-109px', isFlipped: false },
-        { x: '-20px', y: '-212px', isFlipped: false },
-        { x: '-125px', y: '-9px', isFlipped: false },
-        { x: '-125px', y: '-109px', isFlipped: false },
-        { x: '-125px', y: '-212px', isFlipped: false },
-        { x: '-230px', y: '-9px', isFlipped: false },
-        { x: '-230px', y: '-109px', isFlipped: false },
-        { x: '-230px', y: '-212px', isFlipped: false }
+        { posId: '-20px -9px', isFlipped: false },
+        { posId: '-20px -109px', isFlipped: false },
+        { posId: '-20px -212px', isFlipped: false },
+        { posId: '-125px -9px', isFlipped: false },
+        { posId: '-125px -109px', isFlipped: false },
+        { posId: '-125px -212px', isFlipped: false },
+        { posId: '-230px -9px', isFlipped: false },
+        { posId: '-230px -109px', isFlipped: false },
+        { posId: '-230px -212px', isFlipped: false }
     ];
     let candidate = Array.from(socialmediaCards);
     candidate.splice(Math.floor(Math.random() * 9), 1); //9개 중에 8개 선택
-    candidate = candidate.concat(candidate);            //16개 카드 생성
-    suffleCards(candidate);
-    // console.log(socialmediaCards, candidate);
-    paintBoard();
+    suffleCards(copyCardDoubled(candidate));            //16장 카드 만들기 -> 카드섞기
 }
 
+
+function checkFlippedCards() {
+    // console.log(flippedCards);
+    const firstCardObj = getCard(flippedCards[0]);
+    const secondCardObj = getCard(flippedCards[1]);
+    if (firstCardObj.posId === secondCardObj.posId) {
+        flippedCards.forEach(cardId => {
+            document.getElementById(`${cardId}`).removeEventListener('click', handleClick); //클릭 이벤트를 제거
+        });
+        //card obj state 변경
+        firstCardObj.isFlipped = true;
+        secondCardObj.isFlipped = true;
+    }
+    else {
+        //다시 뒤집어 줘야함
+        flippedCards.forEach(cardId => {
+            setTimeout(() => {
+                document.getElementById(`${cardId}`).classList.remove('isFlipped'); //다시 뒤집기
+            }, 800);
+        })
+    }
+}
+
+function getCard(id) {
+    return cardObjInArray.filter(cardObj => cardObj.id === id)[0];
+}
 
 function handleClick(e) {
-    console.log('click');
     const { currentTarget } = e;
-    console.log(currentTarget);
-    currentTarget.classList.toggle('isFlipped');
+    if (flipCount < 2 && !currentTarget.className.includes('isFlipped')) {
+        flipCount++;
+        currentTarget.classList.toggle('isFlipped');
+        flippedCards.push(currentTarget.id);
+        if (flipCount === 2) {
+            checkFlippedCards();
+            setTimeout(() => {
+                //안전장치 : 틀린 경우 다시 뒤집어질 때 뒤집어지는 액션이 완료되기전에 클릭할 수 없도록!
+                flipCount = 0;
+                flippedCards = [];
+            }, 1000)
+        }
+    }
 }
-
 
 function paintBoard() {
     const fragment = new DocumentFragment();
@@ -61,13 +106,12 @@ function paintBoard() {
         const scene = document.createElement('div');
         scene.classList.add('scene');
         const card = document.createElement('div');
-        card.addEventListener('click', handleClick);
         card.classList.add('card');
+        card.id = cardObj.id;
         scene.append(card);
         const front = document.createElement('div');
         front.classList.add('cardface', 'front');
-        console.log(`${cardObj.x}px ${cardObj.y}px`);
-        front.style.backgroundPosition = `${cardObj.x} ${cardObj.y}`;
+        front.style.backgroundPosition = `${cardObj.posId}`;
         card.append(front);
         const back = document.createElement('div');
         back.classList.add('cardface', 'back');
@@ -75,10 +119,14 @@ function paintBoard() {
         fragment.append(scene);
     });
     cardBoard.append(fragment);
+    const cards = document.querySelectorAll('.card');
+    return cards;
 };
 
 function init() {
     makeCardObject();
+    const cards = paintBoard();
+    cards.forEach(card => card.addEventListener('click', handleClick));
 }
 
 
