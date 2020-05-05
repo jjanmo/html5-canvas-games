@@ -3,24 +3,30 @@
 //     card.classList.toggle("isFliped");
 // });
 
+const cardContentSel = document.getElementById('js-card-content');
+const gameDifficultySel = document.getElementById('js-difficulty');
 const startBtn = document.getElementById('js-start-button');
 const timerDiv = document.getElementById('js-timer');
 const cardBoard = document.getElementById('js-card-board');
 let flipCount = 0;
 let flippedCards = [];
-let start = false;
-let timer;
-let minute, second;
+// let start = false;
+let timer, minute, second;
+let candidate, numberOfCards;
 
-let cardObjInArray = []; //card object를 담는 배열;
+//card style관련 변수
+let backgroundSize, cardContent;
+
+//card object를 담는 배열;
+let cardObjInArray = [];
 /*
 card object
-- posX
-- posY
+- id
+- posId
 - isFlipped 
 */
 
-function getTimer() {
+function getTimer() { //closure로 바꿔보기!!
     minute = 0;
     second = 0;
     // const startTime = timer.textContent;
@@ -55,7 +61,7 @@ function getTimer() {
 }
 
 
-function readyGame(cards) { //시작 전에 전체적으로 보여주는 단계
+function readyGame() { //시작 전에 전체적으로 보여주는 단계
     cards.forEach((card, idx) =>
         setTimeout(() => {
             card.classList.add('isFlipped');
@@ -64,48 +70,27 @@ function readyGame(cards) { //시작 전에 전체적으로 보여주는 단계
     cards.forEach((card) =>
         setTimeout(() => {
             card.classList.remove('isFlipped');
-        }, 1700)
+        }, numberOfCards / 4 * 400)
     );
 }
 
-function suffleCards(notShuffledCards) {
-    const CARDS_LENGTH = 16;
-    for (let i = 0; i < CARDS_LENGTH; i++) {
-        cardObjInArray.push(notShuffledCards.splice(Math.floor(Math.random() * (16 - i)), 1)[0]);
-        cardObjInArray[i].id = String(Date.now() * (i + 1)); //id부여
-    }
-    // console.log(cardObjInArray);
-}
+function handleGameStart(e) {
+    //타이머 초기화
+    clearInterval(timer);
+    minute = 0;
+    second = 0;
+    timerDiv.textContent = `00:00`;
 
-function copyCardDoubled(candidate) {
-    const newCandidate = [];
-    candidate.forEach(card => {
-        const newCard = Object.assign({}, card);
-        newCandidate.push(card);
-        newCandidate.push(newCard);
-    });
-    return newCandidate;
+    makeCardObject();
+    paintBoard();
+    readyGame();
+    setTimeout(function () {
+        cards.forEach(card => card.addEventListener('click', handleClick));
+    }, 2000);
+    setTimeout(function () {
+        getTimer();
+    }, 1000);
 }
-
-function makeCardObject() {//parametr content에 따라서 들어가야 할 카드그림이 달라짐
-    cardObjInArray = [];   //card object 배열 초기화
-    //socialmedia icons 9개 -> basic 8개 뽑기
-    const socialmediaCards = [
-        { posId: '-20px -9px', isFlipped: false },
-        { posId: '-20px -109px', isFlipped: false },
-        { posId: '-20px -212px', isFlipped: false },
-        { posId: '-125px -9px', isFlipped: false },
-        { posId: '-125px -109px', isFlipped: false },
-        { posId: '-125px -212px', isFlipped: false },
-        { posId: '-230px -9px', isFlipped: false },
-        { posId: '-230px -109px', isFlipped: false },
-        { posId: '-230px -212px', isFlipped: false }
-    ];
-    let candidate = Array.from(socialmediaCards);
-    candidate.splice(Math.floor(Math.random() * 9), 1); //9개 중에 8개 선택
-    suffleCards(copyCardDoubled(candidate));            //16장 카드 만들기 -> 카드섞기
-}
-
 
 function checkFlippedCards() {
     // console.log(flippedCards);
@@ -174,6 +159,8 @@ function paintBoard() {
         const front = document.createElement('div');
         front.classList.add('cardface', 'front');
         front.style.backgroundPosition = `${cardObj.posId}`;
+        front.style.backgroundImage = `url("image/${cardContent}.png")`
+        front.style.backgroundSize = `${backgroundSize}`;
         card.append(front);
         const back = document.createElement('div');
         back.classList.add('cardface', 'back');
@@ -181,32 +168,150 @@ function paintBoard() {
         fragment.append(scene);
     });
     cardBoard.append(fragment);
-    const cards = document.querySelectorAll('.card');
-    return cards;
+
+    cards = document.querySelectorAll('.card');
+    frontfaces = document.querySelectorAll('.front');
 };
 
-function handleGameStart(e) {
-    //타이머 초기화
-    clearInterval(timer);
-    minute = 0;
-    second = 0;
-    timerDiv.textContent = `00:00`;
+function copyCardDoubled(candidate) {
+    const newCandidate = [];
+    candidate.forEach(card => {
+        const newCard = Object.assign({}, card);
+        newCandidate.push(card);
+        newCandidate.push(newCard);
+    });
+    return newCandidate;
+}
 
-    makeCardObject();
-    const cards = paintBoard();
-    readyGame(cards);
-    setTimeout(function () {
-        cards.forEach(card => card.addEventListener('click', handleClick));
-    }, 2000);
-    setTimeout(function () {
-        getTimer();
-    }, 1000);
+function suffleCards(notShuffledCards) {
+    for (let i = 0; i < numberOfCards; i++) {
+        cardObjInArray.push(notShuffledCards.splice(Math.floor(Math.random() * (numberOfCards - i)), 1)[0]);
+        cardObjInArray[i].id = String(Date.now() * (i + 1)); //id부여
+    }
+    console.log(cardObjInArray);
+}
+
+function makeCardObject() {
+    cardObjInArray = [];    //card object 배열 초기화
+    //필요한 카드 종류 뽑기
+    const originalLength = candidate.length;
+    for (let i = 0; i < (originalLength - numberOfCards / 2); i++) {
+        candidate.splice(Math.floor(Math.random() * originalLength - i), 1);
+    }
+    console.log(candidate);
+    const newCandidate = copyCardDoubled(candidate);            // 카드 2배로 만들기 
+    console.log(newCandidate);
+
+    suffleCards(newCandidate);                                  //카드섞기
+}
+
+
+function handleSelectContent(e) {
+    const { target } = e;
+    cardContent = target.value;
+    console.log(cardContent);
+    candidate = []; //초기화
+    //카드 종류  선택
+    switch (cardContent) {
+        case 'cute-animals': //19종류
+            candidate = [
+                { posId: '-33px -58px', isFlipped: false },
+                { posId: '-131px -58px ', isFlipped: false },
+                { posId: '-228px -58px ', isFlipped: false },
+                { posId: '-324px -58px ', isFlipped: false },
+                { posId: '-421px -58px', isFlipped: false },
+                { posId: '-33px -155px ', isFlipped: false },
+                { posId: '-133px -162px ', isFlipped: false },
+                { posId: '-228px -160px ', isFlipped: false },
+                { posId: '-324px -158px', isFlipped: false },
+                { posId: '-33px -263px', isFlipped: false },
+                { posId: '-133px -257px', isFlipped: false },
+                { posId: '-229px -262px', isFlipped: false },
+                { posId: '-325px -262px', isFlipped: false },
+                { posId: '-422px -255px', isFlipped: false },
+                { posId: '-33px -359px', isFlipped: false },
+                { posId: '-132px -359px', isFlipped: false },
+                { posId: '-229px -362px', isFlipped: false },
+                { posId: '-324px -362px', isFlipped: false },
+                { posId: '-420px -362px', isFlipped: false }
+            ];
+            //background-size 
+            backgroundSize = '550%';
+            break;
+        case 'epl-logos': //20종류
+            candidate = [
+                { posId: '-58px -156px', isFlipped: false },
+                { posId: '-161px -156px', isFlipped: false },
+                { posId: '-256px -156px ', isFlipped: false },
+                { posId: '-371px -156px ', isFlipped: false },
+                { posId: '-475px -156px ', isFlipped: false },
+                { posId: '-58px -265px ', isFlipped: false },
+                { posId: '-163px -273px ', isFlipped: false },
+                { posId: '-267px -271px ', isFlipped: false },
+                { posId: '-371px -273px ', isFlipped: false },
+                { posId: '-486px -274px ', isFlipped: false },
+                { posId: '-58px -378px ', isFlipped: false },
+                { posId: '-164px -384px ', isFlipped: false },
+                { posId: '-272px -271px ', isFlipped: false },
+                { posId: '-377px -384px ', isFlipped: false },
+                { posId: '-494px -386px ', isFlipped: false },
+                { posId: '-55px -497px ', isFlipped: false },
+                { posId: '-164px -503px ', isFlipped: false },
+                { posId: '-272px -497px ', isFlipped: false },
+                { posId: '-370px -496px', isFlipped: false },
+                { posId: '-493px -499px ', isFlipped: false },
+            ];
+            //background-size 
+            backgroundSize = '650%';
+            break;
+        case 'smile-emoji': //15종류
+            candidate = [
+                { posId: '-10px -60px', isFlipped: false },
+                { posId: '-120px -60px ', isFlipped: false },
+                { posId: '-227px -60px ', isFlipped: false },
+                { posId: '-335px -60px ', isFlipped: false },
+                { posId: '-441px -60px ', isFlipped: false },
+                { posId: '-10px -191px ', isFlipped: false },
+                { posId: '-120px -191px ', isFlipped: false },
+                { posId: '-227px -191px ', isFlipped: false },
+                { posId: '-335px -191px ', isFlipped: false },
+                { posId: '-440px -191px ', isFlipped: false },
+                { posId: '-10px -365px ', isFlipped: false },
+                { posId: '-120px -365px ', isFlipped: false },
+                { posId: '-219px -365px ', isFlipped: false },
+                { posId: '-335px -365px ', isFlipped: false },
+                { posId: '-445px -365px ', isFlipped: false },
+            ];
+            //background-size 설정
+            backgroundSize = '550%';
+            break;
+    }
+}
+
+function handleSelectDifficulty(e) {
+    const { target } = e;
+    const gameDifficuty = target.value;
+    console.log(gameDifficuty);
+    switch (gameDifficuty) { //난이도에 따라 필요한 총 카드의 수
+        case 'basic':
+            numberOfCards = 16; //4*4
+            break;
+        case 'intermediate':
+            numberOfCards = 20; //4*5
+            break;
+        case 'advanced':
+            numberOfCards = 24; //4*6
+            break;
+    }
+    //카드보드 스타일 설정
+    cardBoard.classList.add(`${gameDifficuty}`);
 }
 
 function init() {
-    //default board
+    //make default board(4*4)
+    cardContentSel.addEventListener('change', handleSelectContent);
+    gameDifficultySel.addEventListener('change', handleSelectDifficulty);
     startBtn.addEventListener('click', handleGameStart);
 }
-
 
 init();

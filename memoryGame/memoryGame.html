@@ -10,24 +10,29 @@
         <div class="wrapper">
             <div class="select-container">
                 <div class="selectbox">
-                    <select name="card-content">
-                        <option value="cute dogs">cute dogs</option>
-                        <option value="programming-logo">programming logo</option>
-                        <option value="socialmedia-icons">socialmedia icons</option>
+                    <select name="card-content" id="js-card-content">
+                        <option value="">card-content</option>
+                        <option value="cute-animals">cute animals</option>
+                        <option value="epl-logos">English Premier League logos</option>
+                        <!-- <option value="socialmedia-icons">socialmedia icons</option> -->
+                        <option value="smile-emoji">smile emoji</option>
                     </select>
-                    <select name="difficulty">
-                        <option value="basic">basic</option>
-                        <option value="intermediate">intermediate</option>
-                        <option value="advanced">advanced</option>
+                    <select name="difficulty" id="js-difficulty">
+                        <option value="">difficulty</option>
+                        <option title="16 Cards" value="basic">basic</option>
+                        <option title="20 Cards" value="intermediate">intermediate </option>
+                        <option title="24 Cards" value="advanced">advanced</option>
                     </select>
                 </div>
-                <button class="start-button" id="js-start-button">start</button>
+                <div class="button-box">
+                    <button class="button start-button" id="js-start-button">start</button>
+                    <button class="button rank-button" id="js-rank-button">rank</button>
+                </div>
             </div>
             <div class="record-container">
                 <div class="timer" id="js-timer">00:00</div>
-                <div class="rank">Rank</div>
             </div>
-            <div class="card-board basic" id="js-card-board"></div>
+            <div class="card-board" id="js-card-board"></div>
         </div>
         <script src="memoryGame.js"></script>
     </body>
