@@ -75,11 +75,11 @@ function readyGame() { //시작 전에 전체적으로 보여주는 단계
             card.classList.add('isFlipped');
         }, 70 * idx)
     );
-    // cards.forEach((card) =>
-    //     setTimeout(() => {
-    //         card.classList.remove('isFlipped');
-    //     }, numberOfCards / 4 * 400)
-    // );
+    cards.forEach((card) =>
+        setTimeout(() => {
+            card.classList.remove('isFlipped');
+        }, numberOfCards / 4 * 400)
+    );
 }
 
 function handleGameStart(e) {
