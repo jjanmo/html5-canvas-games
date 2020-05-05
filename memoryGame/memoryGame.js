@@ -1,10 +1,9 @@
-// const card = document.querySelector(".card");
-// card.addEventListener("click", function (e) {
-//     card.classList.toggle("isFliped");
-// });
-
+const modal = document.getElementById('js-modal');
+const modalOverlay = document.getElementById('js-modal-overlay');
+const modalContent = document.getElementById('js-modal-content')
 const cardContentSel = document.getElementById('js-card-content');
 const gameDifficultySel = document.getElementById('js-difficulty');
+const message = document.getElementById('js-msg');
 const startBtn = document.getElementById('js-start-button');
 const timerDiv = document.getElementById('js-timer');
 const cardBoard = document.getElementById('js-card-board');
@@ -15,9 +14,9 @@ let timer, minute, second;
 let candidate, numberOfCards;
 
 //card style관련 변수
-let backgroundSize, cardContent;
+let backgroundSize, cardContent, gameDifficuty;
 
-//card object를 담는 배열;
+//card object를 담는 배열
 let cardObjInArray = [];
 /*
 card object
@@ -25,6 +24,15 @@ card object
 - posId
 - isFlipped 
 */
+
+function showRecordModal(record) {
+    modal.classList.remove('hidden');
+    modalContent.textContent = `Your record is ${record}`
+}
+
+function exitModal() {
+    modal.classList.add('hidden');
+}
 
 function getTimer() { //closure로 바꿔보기!!
     minute = 0;
@@ -67,47 +75,55 @@ function readyGame() { //시작 전에 전체적으로 보여주는 단계
             card.classList.add('isFlipped');
         }, 70 * idx)
     );
-    cards.forEach((card) =>
-        setTimeout(() => {
-            card.classList.remove('isFlipped');
-        }, numberOfCards / 4 * 400)
-    );
+    // cards.forEach((card) =>
+    //     setTimeout(() => {
+    //         card.classList.remove('isFlipped');
+    //     }, numberOfCards / 4 * 400)
+    // );
 }
 
 function handleGameStart(e) {
-    //타이머 초기화
-    clearInterval(timer);
-    minute = 0;
-    second = 0;
-    timerDiv.textContent = `00:00`;
+    if (cardContent && gameDifficuty) {
+        // console.log(cardContent, gameDifficuty);
+        //타이머 초기화
+        clearInterval(timer);
+        minute = 0;
+        second = 0;
+        timerDiv.textContent = `00:00`;
 
-    makeCardObject();
-    paintBoard();
-    readyGame();
-    setTimeout(function () {
-        cards.forEach(card => card.addEventListener('click', handleClick));
-    }, 2000);
-    setTimeout(function () {
-        getTimer();
-    }, 1000);
+        makeCardObject();
+        paintBoard();
+        readyGame();
+        setTimeout(function () {
+            cards.forEach(card => card.addEventListener('click', handleClickCard));
+        }, 2000);
+        setTimeout(function () {
+            getTimer();
+        }, numberOfCards / 4 * 300);
+    }
+    else {
+        message.textContent = 'Please select card-content or diffuculty again';
+        setTimeout(function () {
+            message.textContent = '';
+        }, 2000)
+    }
 }
 
 function checkFlippedCards() {
-    // console.log(flippedCards);
+    console.log(flippedCards);
     const firstCardObj = getCard(flippedCards[0]);
     const secondCardObj = getCard(flippedCards[1]);
     if (firstCardObj.posId === secondCardObj.posId) {
         flippedCards.forEach(cardId => {
-            document.getElementById(`${cardId}`).removeEventListener('click', handleClick); //클릭 이벤트를 제거
+            document.getElementById(`${cardId}`).removeEventListener('click', handleClickCard); //클릭 이벤트를 제거
         });
         //card obj state 변경
         firstCardObj.isFlipped = true;
         secondCardObj.isFlipped = true;
         if (checkGameEnd()) {
             clearInterval(timer);
-            const score = timerDiv.textContent;
-            alert(score);
-            //걸린 시간 체크
+            const record = timerDiv.textContent;
+            showRecordModal(record);
         }
     }
     else {
@@ -129,8 +145,9 @@ function checkGameEnd() {
     return cardObjInArray.every(cardObj => cardObj.isFlipped);
 }
 
-function handleClick(e) {
+function handleClickCard(e) {
     const { currentTarget } = e;
+    console.log(currentTarget);
     if (flipCount < 2 && !currentTarget.className.includes('isFlipped')) {
         flipCount++;
         currentTarget.classList.toggle('isFlipped');
@@ -141,7 +158,7 @@ function handleClick(e) {
                 //안전장치 : 틀린 경우 다시 뒤집어질 때 뒤집어지는 액션이 완료되기전에 클릭할 수 없도록!
                 flipCount = 0;
                 flippedCards = [];
-            }, 900)
+            }, 800)
         }
     }
 }
@@ -168,19 +185,22 @@ function paintBoard() {
         fragment.append(scene);
     });
     cardBoard.append(fragment);
+    //카드보드 스타일 설정
+    cardBoard.className = ''; //초기화 후 설정
+    cardBoard.classList.add(`${gameDifficuty}`, 'card-board');
 
     cards = document.querySelectorAll('.card');
     frontfaces = document.querySelectorAll('.front');
 };
 
-function copyCardDoubled(candidate) {
-    const newCandidate = [];
-    candidate.forEach(card => {
+function makeCardDouble(cards) {
+    const newCards = [];
+    cards.forEach(card => {
         const newCard = Object.assign({}, card);
-        newCandidate.push(card);
-        newCandidate.push(newCard);
+        newCards.push(card);
+        newCards.push(newCard);
     });
-    return newCandidate;
+    return newCards;
 }
 
 function suffleCards(notShuffledCards) {
@@ -192,24 +212,23 @@ function suffleCards(notShuffledCards) {
 }
 
 function makeCardObject() {
-    cardObjInArray = [];    //card object 배열 초기화
+    cardObjInArray = [];    //final card object 배열 초기화
     //필요한 카드 종류 뽑기
-    const originalLength = candidate.length;
-    for (let i = 0; i < (originalLength - numberOfCards / 2); i++) {
-        candidate.splice(Math.floor(Math.random() * originalLength - i), 1);
+    const copiedCandidate = Array.from(candidate); //참조링크제거위해
+    for (let i = 0; i < (candidate.length - numberOfCards / 2); i++) {
+        copiedCandidate.splice(Math.floor(Math.random() * candidate.length - i), 1);
     }
-    console.log(candidate);
-    const newCandidate = copyCardDoubled(candidate);            // 카드 2배로 만들기 
-    console.log(newCandidate);
+    console.log(candidate, copiedCandidate);
+    const doubledCandidate = makeCardDouble(copiedCandidate);            // 카드 2배로 만들기 
+    console.log(doubledCandidate);
 
-    suffleCards(newCandidate);                                  //카드섞기
+    suffleCards(doubledCandidate);                                      //카드섞기
 }
 
 
 function handleSelectContent(e) {
     const { target } = e;
     cardContent = target.value;
-    console.log(cardContent);
     candidate = []; //초기화
     //카드 종류  선택
     switch (cardContent) {
@@ -252,7 +271,7 @@ function handleSelectContent(e) {
                 { posId: '-486px -274px ', isFlipped: false },
                 { posId: '-58px -378px ', isFlipped: false },
                 { posId: '-164px -384px ', isFlipped: false },
-                { posId: '-272px -271px ', isFlipped: false },
+                { posId: '-272px -383px ', isFlipped: false },
                 { posId: '-377px -384px ', isFlipped: false },
                 { posId: '-494px -386px ', isFlipped: false },
                 { posId: '-55px -497px ', isFlipped: false },
@@ -290,8 +309,7 @@ function handleSelectContent(e) {
 
 function handleSelectDifficulty(e) {
     const { target } = e;
-    const gameDifficuty = target.value;
-    console.log(gameDifficuty);
+    gameDifficuty = target.value;
     switch (gameDifficuty) { //난이도에 따라 필요한 총 카드의 수
         case 'basic':
             numberOfCards = 16; //4*4
@@ -303,15 +321,14 @@ function handleSelectDifficulty(e) {
             numberOfCards = 24; //4*6
             break;
     }
-    //카드보드 스타일 설정
-    cardBoard.classList.add(`${gameDifficuty}`);
 }
 
 function init() {
-    //make default board(4*4)
     cardContentSel.addEventListener('change', handleSelectContent);
     gameDifficultySel.addEventListener('change', handleSelectDifficulty);
     startBtn.addEventListener('click', handleGameStart);
+    //modal
+    modalOverlay.addEventListener('click', exitModal);
 }
 
 init();
