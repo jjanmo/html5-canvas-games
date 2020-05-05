@@ -11,7 +11,7 @@ let flipCount = 0;
 let flippedCards = [];
 // let start = false;
 let timer, minute, second;
-let candidate, numberOfCards;
+let cards, candidate, numberOfCards;
 
 //card style관련 변수
 let backgroundSize, cardContent, gameDifficuty;
@@ -47,7 +47,7 @@ function getTimer() { //closure로 바꿔보기!!
             second = 0;
         }
         //render
-        let = result = '';
+        let result = '';
         if (minute < 10) {
             if (second < 10) {
                 result = `0${minute}:0${second}`;
@@ -190,7 +190,6 @@ function paintBoard() {
     cardBoard.classList.add(`${gameDifficuty}`, 'card-board');
 
     cards = document.querySelectorAll('.card');
-    frontfaces = document.querySelectorAll('.front');
 };
 
 function makeCardDouble(cards) {

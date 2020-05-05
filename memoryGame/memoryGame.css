@@ -34,14 +34,14 @@ option {
 }
 
 .msg {
-    width: 30%;
+    width: 35%;
     height: 1.5rem;
     background-color: #34495e;
     color: white;
     font-weight: 600;
     border-radius: 5px;
     text-align: center;
-    padding: 2px 0;
+    padding: 2px 5px;
 }
 .button {
     all: unset;
