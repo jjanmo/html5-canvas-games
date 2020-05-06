@@ -1,0 +1,193 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 1rem auto;
+    /* background-color: #eee; */
+    /* width: 100vh;
+    height: 100vh; */
+    padding: 1.5rem 0;
+}
+
+.header {
+    /* display: flex;
+    flex-direction: row; */
+    margin-bottom: 1rem;
+    padding: 0.5rem 0.7rem;
+}
+
+.select-difficulty {
+    margin-bottom: 1rem;
+}
+
+.difficulty {
+    text-transform: uppercase;
+    margin-right: 0.8rem;
+    padding: 5px 10px;
+    font-size: 18px;
+    cursor: pointer;
+}
+
+.difficulty:not(.selected):hover {
+    color: #d63031;
+}
+
+.selected {
+    font-weight: 600;
+}
+
+.control-block {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+.panel {
+    width: 60px;
+    height: 37px;
+    display: flex;
+    flex-direction: row;
+}
+
+.number {
+    width: 20px;
+    height: 100%;
+    background-image: url('image/minesweeper-sprite.png');
+    background-size: 2300%;
+}
+
+.display {
+    width: 40px;
+    height: 40px;
+}
+
+.button {
+    width: 100%;
+    height: 100%;
+    background-image: url('image/minesweeper-sprite.png');
+    background-size: 1200%;
+    cursor: pointer;
+}
+
+.button:active {
+    background-size: 1122%;
+    background-position: -45px -41px;
+    /* transform: scale(0.9); */
+}
+
+.board {
+    display: grid;
+    grid-template-columns: repeat(10, 28px);
+    border-top: 5px solid #7f8c8d;
+    border-left: 5px solid #7f8c8d;
+    border-right: 5px solid #f5f6fa;
+    border-bottom: 5px solid #f5f6fa;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
+}
+
+.block {
+    width: 28px;
+    height: 28px;
+    background-image: url(image/minesweeper-sprite.png);
+    background-repeat: no-repeat;
+    background-size: 1760%;
+    cursor: pointer;
+}
+
+/* background image */
+
+/* in number */
+.one {
+    background-position: -3px -3px;
+}
+.two {
+    background-position: -25px -3px;
+}
+.three {
+    background-position: -48px -3px;
+}
+.four {
+    background-position: -69px -3px;
+}
+.five {
+    background-position: -92px -3px;
+}
+.six {
+    background-position: -114px -3px;
+}
+.seven {
+    background-position: -137px -3px;
+}
+.eight {
+    background-position: -158px -3px;
+}
+.nine {
+    background-position: -181px -3px;
+}
+.zero {
+    background-position: -203px -3px;
+}
+
+/* in block  */
+.one-mine {
+    background-position: -4px -119px;
+}
+.two-mine {
+    background-position: -33px -119px;
+}
+.three-mine {
+    background-position: -61px -119px;
+}
+.four-mine {
+    background-position: -90px -119px;
+}
+.five-mine {
+    background-position: -119px -119px;
+}
+.six-mine {
+    background-position: -148px -119px;
+}
+.seven-mine {
+    background-position: -177px -119px;
+}
+.eight-mine {
+    background-position: -206px -119px;
+}
+
+.not-clicked {
+    background-position: -3px -90px;
+}
+.clicked {
+    background-position: -33px -90px;
+}
+
+.flag {
+    background-position: -62px -90px;
+}
+.mine {
+    background-position: -147px -90px;
+}
+.step-mine {
+    background-position: -177px -90px;
+}
+.wrong-mine {
+    background-position: -206px -90px;
+}
+
+/* in button */
+.start {
+    background-position: -5px -45px;
+}
+
+.success {
+    background-position: -139px -45px;
+}
+.failure {
+    background-position: -184px -45px;
+}
