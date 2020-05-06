@@ -16,22 +16,24 @@
 }
 
 .header {
-    /* display: flex;
-    flex-direction: row; */
+    /* width: 100%; */
     margin-bottom: 1rem;
     padding: 0.5rem 0.7rem;
 }
 
 .select-difficulty {
+    padding: 5px 10px;
     margin-bottom: 1rem;
 }
 
 .difficulty {
+    /* display: inline-block; */
     text-transform: uppercase;
     margin-right: 0.8rem;
-    padding: 5px 10px;
+    padding: 5px 20px;
     font-size: 18px;
     cursor: pointer;
+    width: 30%;
 }
 
 .difficulty:not(.selected):hover {
