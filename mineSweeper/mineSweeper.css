@@ -44,6 +44,13 @@
     font-weight: 600;
 }
 
+.custom-config {
+}
+
+.hidden {
+    display: hidden;
+}
+
 .control-block {
     display: flex;
     flex-direction: row;
@@ -85,12 +92,22 @@
 
 .board {
     display: grid;
-    grid-template-columns: repeat(10, 28px);
     border-top: 5px solid #7f8c8d;
     border-left: 5px solid #7f8c8d;
     border-right: 5px solid #f5f6fa;
     border-bottom: 5px solid #f5f6fa;
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
+}
+
+.basic {
+    grid-template-columns: repeat(10, 28px);
+}
+.intermediate {
+    grid-template-columns: repeat(15, 28px);
+}
+
+.advanced {
+    grid-template-columns: repeat(25, 28px);
 }
 
 .block {
