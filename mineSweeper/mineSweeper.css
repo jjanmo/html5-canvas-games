@@ -154,6 +154,11 @@
 }
 
 /* in block  */
+.zero-mine {
+    /* clicked */
+    background-position: -33px -90px;
+}
+
 .one-mine {
     background-position: -4px -119px;
 }
@@ -181,9 +186,6 @@
 
 .not-clicked {
     background-position: -3px -90px;
-}
-.clicked {
-    background-position: -33px -90px;
 }
 
 .flag {
