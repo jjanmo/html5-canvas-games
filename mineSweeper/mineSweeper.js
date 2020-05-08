@@ -6,25 +6,87 @@ let blockObjs = {};     //block obj를 담는 객체 : 블럭 데이터정보
 let blocks;             //blocks array
 let totalMine = 0;
 let isStarted = false;
+let difficulty;         //게임 난이도 
+let timer;              //타이머
 
 
 //게임 다시 시작 할 때마다 초기화해야 할 것들
 //-> 다시 시작하는 경우 : 1)난이도 클릭시 2) start button 클릭시
 function restartInit() {
+    //타이머
+    clearInterval(timer);
+    startTimer = makeTimer();
     isStarted = false;
     blockObjs = {}; //blockObjs 초기화
 }
 
+function makeTimer() {
+    let second = 0;
+    return function () {
+        timer = setInterval(function () {
+            second++;
+            renderTimerPanel(second);
+            console.log(second);
+        }, 1000)
+    };
+}
+
+function renderTimerPanel(second) {
+    second = second < 100 ? (second < 10 ? '00' + second : '0' + second) : second;
+    console.log(second);
+    const secondArr = second.split('');
+    console.log(secondArr);
+    const timerPanel = document.getElementById('js-timer-panel');
+    const numbers = timerPanel.querySelectorAll('.number');
+    secondArr.forEach((digit, idx) => {
+        let name = '';
+        switch (digit) {
+            case '1':
+                name = 'one';
+                break;
+            case '2':
+                name = 'two';
+                break;
+            case '3':
+                name = 'three';
+                break;
+            case '4':
+                name = 'four';
+                break;
+            case '5':
+                name = 'five';
+                break;
+            case '6':
+                name = 'six';
+                break;
+            case '7':
+                name = 'seven';
+                break;
+            case '8':
+                name = 'eight';
+                break;
+            case '9':
+                name = 'nine';
+                break;
+            default:
+                name = 'zero';
+                break;
+        }
+        numbers[idx].className = `number ${name}`;
+    });
+}
+
 //difficulty
 function handleSelectDifficulty(e) {
-    const difficulty = e.target;
+    const difficultyEle = e.target;
     difficultySpans.forEach(ele => ele.classList.remove('selected'));
-    difficulty.classList.add('selected');
-    paintBlocks(difficulty.textContent);
+    difficultyEle.classList.add('selected');
+    difficulty = difficultyEle.textContent
+    paintBlocks();
 }
 
 //block
-function paintBlocks(difficulty) {
+function paintBlocks() {
     restartInit();
     let fragment;
     switch (difficulty) {
@@ -34,7 +96,7 @@ function paintBlocks(difficulty) {
             break;
         case 'intermediate': // 15 * 15 지뢰 40개
             fragment = makeBlocks(15);
-            totalMine = 40;
+            totalMine = 45;
             break;
         case 'advanced': //24 * 24 지뢰 100개
             fragment = makeBlocks(24);
@@ -43,7 +105,7 @@ function paintBlocks(difficulty) {
         default: //custom
             break;
     }
-    renderPanel(totalMine);
+    renderMineCountPanel(totalMine);
     board.className = `board ${difficulty}`;
     board.innerHTML = '';
     board.append(fragment);
@@ -81,7 +143,7 @@ function makeClickEvent() {
     // blocks.forEach(block => block.addEventListener('contextmenu', handleContextMenu));   //right click
 }
 
-function renderPanel(totalMine) {
+function renderMineCountPanel(totalMine) {
     const mineCountPanel = document.getElementById('js-count-panel');
     const numbers = mineCountPanel.querySelectorAll('.number');
     numbers.forEach(ele => ele.className = 'number');
@@ -91,10 +153,10 @@ function renderPanel(totalMine) {
             numbers[1].classList.add('one');
             numbers[2].classList.add('zero');
             break;
-        case 40:
+        case 45:
             numbers[0].classList.add('zero');
             numbers[1].classList.add('four');
-            numbers[2].classList.add('zero');
+            numbers[2].classList.add('five');
             break;
         case 100:
             numbers[0].classList.add('one');
@@ -150,6 +212,7 @@ function handleClickBlock(e) {
         const blockId = target.id;
         // const index = e.target.dataset.index; //사용할지 말지 ??
         if (!isStarted) { //첫번째 클릭한 후에 지뢰 셋팅
+            startTimer();
             setMine(totalMine, blockId);
             isStarted = true;
         }
@@ -246,6 +309,8 @@ function init() {
     difficultySpans.forEach(ele => ele.addEventListener('click', handleSelectDifficulty));
     //initial
     document.querySelector('.selected').click();  //시작값 : 처음에 1번만 사용
+    //restart button
+    startButton.addEventListener('click', paintBlocks);
 }
 
 init();
