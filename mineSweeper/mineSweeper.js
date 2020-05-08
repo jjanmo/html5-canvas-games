@@ -5,21 +5,27 @@ const board = document.getElementById('js-board');
 let blockObjs = {};     //block obj를 담는 객체 : 블럭 데이터정보 
 let blocks;             //blocks array
 let totalMine = 0;
-let isStarted = false;
-let difficulty;         //게임 난이도 
-let timer;              //타이머
-let record;             //기록
+let flagCount = 0;
+
+let difficulty;                 //게임 난이도 
+let isFirstClick = false;       //첫번째 좌클릭인지 확인
+let isStartedTimer = false;     //우클릭을 하거나 좌클릭을 했을 때 타이머는 한 번만 시작해야함 
+let timerFunc;                  //타이머 함수(이 함수를 호출해야 타이머 시작)
+let timer;                      //타이머(timerFunc 함수를 호출하면 리턴:클로저)
+let record;                     //기록
 
 //게임 다시 시작 할 때마다 초기화해야 할 것들
 //-> 다시 시작하는 경우 : 1)난이도 클릭시 2) start button 클릭시
 function restartInit() {
-    clearInterval(timer);   //기존 타이머 중지
-    startTimer = makeTimer();   //타이머 다시 설정
+    clearInterval(timer);       //기존 타이머 중지
+    timerFunc = makeTimer();   //타이머 다시 설정
     timerInit();  //타이머 패널 초기화
     //button image 초기화
     startButton.className = 'button start';
-    isStarted = false;
+    isFirstClick = false;
+    isStartedTimer = false;
     blockObjs = {}; //blockObjs 초기화
+    flagCount = 0;
 }
 
 function timerInit() {
@@ -32,6 +38,7 @@ function timerInit() {
 function makeTimer() {
     let second = 0;
     return function () {
+        isStartedTimer = true;
         timer = setInterval(function () {
             second++;
             renderTimerPanel(second);
@@ -207,17 +214,17 @@ function setMine(totalMine, blockId) {
 }
 
 
-//block click event
+//block left click event
 function handleClickBlock(e) {
     // console.log(blocks, blockObjs);
     const { target } = e;
     // console.log(target);
     if (target.className.includes('not-clicked') && !target.className.includes('flag')) {
         const blockId = target.id;
-        if (!isStarted) { //첫번째 클릭한 후에 지뢰 셋팅
-            startTimer();
+        if (!isFirstClick) { //첫번째 클릭한 후에 지뢰 셋팅
+            if (!isStartedTimer) timerFunc();
             setMine(totalMine, blockId);
-            isStarted = true;
+            isFirstClick = true;
         }
         checkMine(blockId);
         //console.log(blockObjs);
@@ -287,7 +294,6 @@ function checkAround(blockId) {
     }
 }
 
-
 function renderBlock(blockId, count) {
     const curBlock = document.getElementById(blockId);
     if (curBlock.className.includes('flag')) curBlock.classList.remove('flag');
@@ -325,19 +331,85 @@ function renderBlock(blockId, count) {
     curBlock.classList.add(`${value}-mine`);
 }
 
-//right click 
+//block right click 
 function handleContextMenu(e) {
     e.preventDefault();
+    if (!isStartedTimer) timerFunc();
     const block = e.target;
+    console.log(flagCount);
     if (block.className.includes('not-clicked')) {
+        //화면 변경
+        if (block.className.includes('flag')) {//flag삭제할 때
+            flagCount--;
+            console.log(flagCount);
+            if (flagCount < 0) {
+                flagCount++;
+                return;
+            }
+            block.classList.remove('flag');
+        }
+        else {//flag추가할 때
+            flagCount++;
+            console.log(flagCount);
+            if (flagCount > totalMine) {
+                flagCount--;
+                return;
+            }
+            block.classList.add('flag');
+        }
+        //지뢰숫자패널 변경
+        changeMineCountPanel();
         //데이터 변경
-        block.classList.toggle('flag');
-        //정보 변경
         blockObjs[block.id].isFlagged = block.className.includes('flag') ? true : false;
         // console.log(blockObjs[block.id]);
     }
 }
 
+function changeMineCountPanel() {
+    const mineCountPanel = document.getElementById('js-count-panel');
+    const numbers = mineCountPanel.querySelectorAll('.number');
+    const restMine =
+        (totalMine - flagCount) < 100 ?
+            ((totalMine - flagCount) < 10 ? '00' + (totalMine - flagCount) : '0' + (totalMine - flagCount))
+            : (totalMine - flagCount).toString();
+    const restMineArr = restMine.split('');
+    restMineArr.forEach((digit, idx) => {
+        let name = '';
+        switch (digit) {
+            case '1':
+                name = 'one';
+                break;
+            case '2':
+                name = 'two';
+                break;
+            case '3':
+                name = 'three';
+                break;
+            case '4':
+                name = 'four';
+                break;
+            case '5':
+                name = 'five';
+                break;
+            case '6':
+                name = 'six';
+                break;
+            case '7':
+                name = 'seven';
+                break;
+            case '8':
+                name = 'eight';
+                break;
+            case '9':
+                name = 'nine';
+                break;
+            default:
+                name = 'zero';
+                break;
+        }
+        numbers[idx].className = `number ${name}`;
+    });
+}
 
 
 //make event listener in block
