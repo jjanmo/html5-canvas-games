@@ -107,7 +107,7 @@
 }
 
 .advanced {
-    grid-template-columns: repeat(20, 28px);
+    grid-template-columns: repeat(24, 28px);
 }
 
 .block {

@@ -1,4 +1,5 @@
 const difficultySpans = document.querySelectorAll('.difficulty');
+const startButton = document.getElementById('js-start-button');
 const board = document.getElementById('js-board');
 
 let blockObjs = {};     //block obj를 담는 객체 : 블럭 데이터정보 
@@ -31,19 +32,19 @@ function paintBlocks(difficulty) {
             fragment = makeBlocks(10);
             totalMine = 10;
             break;
-        case 'intermediate': // 15 * 15 지뢰 25개
+        case 'intermediate': // 15 * 15 지뢰 40개
             fragment = makeBlocks(15);
             totalMine = 40;
             break;
-        case 'advanced': //20 * 20 지뢰 60개
-            fragment = makeBlocks(20);
+        case 'advanced': //24 * 24 지뢰 100개
+            fragment = makeBlocks(24);
             totalMine = 100;
             break;
         default: //custom
             break;
     }
-    board.className = ''
-    board.classList.add('board', `${difficulty}`);
+    renderPanel(totalMine);
+    board.className = `board ${difficulty}`;
     board.innerHTML = '';
     board.append(fragment);
 
@@ -80,6 +81,30 @@ function makeClickEvent() {
     // blocks.forEach(block => block.addEventListener('contextmenu', handleContextMenu));   //right click
 }
 
+function renderPanel(totalMine) {
+    const mineCountPanel = document.getElementById('js-count-panel');
+    const numbers = mineCountPanel.querySelectorAll('.number');
+    numbers.forEach(ele => ele.className = 'number');
+    switch (totalMine) {
+        case 10:
+            numbers[0].classList.add('zero');
+            numbers[1].classList.add('one');
+            numbers[2].classList.add('zero');
+            break;
+        case 40:
+            numbers[0].classList.add('zero');
+            numbers[1].classList.add('four');
+            numbers[2].classList.add('zero');
+            break;
+        case 100:
+            numbers[0].classList.add('one');
+            numbers[1].classList.add('zero');
+            numbers[2].classList.add('zero');
+            break;
+        default:
+            break;
+    }
+}
 
 //게임 관련 object 생성
 function setBlockObj(x, y) {
