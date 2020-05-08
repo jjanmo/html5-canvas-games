@@ -8,17 +8,26 @@ let totalMine = 0;
 let isStarted = false;
 let difficulty;         //게임 난이도 
 let timer;              //타이머
-
+let record;             //기록
 
 //게임 다시 시작 할 때마다 초기화해야 할 것들
 //-> 다시 시작하는 경우 : 1)난이도 클릭시 2) start button 클릭시
 function restartInit() {
-    //타이머
-    clearInterval(timer);
-    startTimer = makeTimer();
+    clearInterval(timer);   //기존 타이머 중지
+    startTimer = makeTimer();   //타이머 다시 설정
+    timerInit();  //타이머 패널 초기화
+    //button image 초기화
+    startButton.className = 'button start';
     isStarted = false;
     blockObjs = {}; //blockObjs 초기화
 }
+
+function timerInit() {
+    const timerPanel = document.getElementById('js-timer-panel');
+    const numbers = timerPanel.querySelectorAll('.number');
+    numbers.forEach(ele => ele.className = 'number zero');
+}
+
 
 function makeTimer() {
     let second = 0;
@@ -26,16 +35,17 @@ function makeTimer() {
         timer = setInterval(function () {
             second++;
             renderTimerPanel(second);
-            console.log(second);
+            // console.log(second);
         }, 1000)
     };
 }
 
 function renderTimerPanel(second) {
-    second = second < 100 ? (second < 10 ? '00' + second : '0' + second) : second;
-    console.log(second);
+    second = second < 100 ? (second < 10 ? '00' + second : '0' + second) : second.toString();
+    if (second > 999) return; //최대치
+    // console.log(second);
     const secondArr = second.split('');
-    console.log(secondArr);
+    // console.log(secondArr);
     const timerPanel = document.getElementById('js-timer-panel');
     const numbers = timerPanel.querySelectorAll('.number');
     secondArr.forEach((digit, idx) => {
@@ -135,13 +145,6 @@ function makeBlocks(length) {
     return fragment;
 }
 
-//make event listener in block
-//-> whenever board repaint, make eventlistener
-function makeClickEvent() {
-    //block click event
-    blocks.forEach(block => block.addEventListener('click', handleClickBlock));             //left click
-    // blocks.forEach(block => block.addEventListener('contextmenu', handleContextMenu));   //right click
-}
 
 function renderMineCountPanel(totalMine) {
     const mineCountPanel = document.getElementById('js-count-panel');
@@ -206,28 +209,49 @@ function setMine(totalMine, blockId) {
 
 //block click event
 function handleClickBlock(e) {
-    console.log(blocks, blockObjs);
+    // console.log(blocks, blockObjs);
     const { target } = e;
-    if (target.className.includes('not-clicked')) {
+    // console.log(target);
+    if (target.className.includes('not-clicked') && !target.className.includes('flag')) {
         const blockId = target.id;
-        // const index = e.target.dataset.index; //사용할지 말지 ??
         if (!isStarted) { //첫번째 클릭한 후에 지뢰 셋팅
             startTimer();
             setMine(totalMine, blockId);
             isStarted = true;
         }
         checkMine(blockId);
-        // // console.log(blockObjs);
+        //console.log(blockObjs);
     }
 }
+
 
 function checkMine(blockId) {
     if (blockObjs[blockId].getMine) {// 지뢰가 있는 경우
         document.getElementById(blockId).classList.add('step-mine');
         document.getElementById(blockId).classList.remove('not-clicked');
         //game over       
+        console.log(blockObjs);
         //모든 지뢰 위치 보여줌 : 현재 상태  + 지뢰 위치 + 잘못된 flag
-        //display변경
+        for (let blockObj in blockObjs) {
+            if (blockObjs[blockObj].getMine) {
+                if (!blockObjs[blockObj].isFlagged) {
+                    document.getElementById(blockObjs[blockObj].setId()).classList.remove('not-clicked');
+                    document.getElementById(blockObjs[blockObj].setId()).classList.add('mine');
+                }
+            }
+            else {
+                if (blockObjs[blockObj].isFlagged) {
+                    document.getElementById(blockObjs[blockObj].setId()).classList.remove('not-clicked');
+                    document.getElementById(blockObjs[blockObj].setId()).classList.add('wrong-mine');
+                }
+            }
+        }
+        //display변경(button image 변경)
+        startButton.className = 'button failure';
+        //모든 블록클릭이벤트 중지
+        removeClickEvent();
+        //timer 정지 => 그 때 시간 기록
+        clearInterval(timer);
     }
     else {//지뢰가 아닌 경우
         checkAround(blockId);
@@ -244,7 +268,7 @@ function checkAround(blockId) {
             if (i === posX && j === posY) continue;     //클릭한 자기자신 제거
             if (blockObjs[`${i}-${j}`]) {
                 if (blockObjs[`${i}-${j}`].clicked) continue;
-                //-> 클릭된 블록 제거 : 재귀적 구현을 위해서 코드위치 중요 - 재귀 탈출조건(recursionArr에 등록될 블록의 구분해줌)
+                //-> 클릭된 블록 제거 : 재귀적 구현을 위해서 코드위치 중요 - 재귀 탈출조건(recursionArr에 등록될 블록을 구분해줌)
                 if (blockObjs[`${i}-${j}`].getMine) {
                     count++;
                 }
@@ -254,23 +278,21 @@ function checkAround(blockId) {
     }
     // console.log(recursionArr);
     // console.log(count);
-    changeBlockObjState(blockId);
+    //데이터 변경
+    blockObjs[blockId].clicked = true;
+    //화면 변경
     renderBlock(blockId, count);
-    if (count === 0) {
+    if (count === 0) { //recursion
         recursionArr.forEach(blockId => checkAround(blockId));
     }
-}
-
-function changeBlockObjState(blockId) {
-    blockObjs[blockId].clicked = true;
-    // console.log(blockObjs);
 }
 
 
 function renderBlock(blockId, count) {
     const curBlock = document.getElementById(blockId);
+    if (curBlock.className.includes('flag')) curBlock.classList.remove('flag');
     let value = null;
-    //css 설정
+    //background image class 설정
     switch (count) {
         case 1:
             value = 'one';
@@ -301,7 +323,34 @@ function renderBlock(blockId, count) {
     }
     curBlock.classList.remove('not-clicked');
     curBlock.classList.add(`${value}-mine`);
-    // blocks[index].classList.add(`${cssName}-mine`);
+}
+
+//right click 
+function handleContextMenu(e) {
+    e.preventDefault();
+    const block = e.target;
+    if (block.className.includes('not-clicked')) {
+        //데이터 변경
+        block.classList.toggle('flag');
+        //정보 변경
+        blockObjs[block.id].isFlagged = block.className.includes('flag') ? true : false;
+        // console.log(blockObjs[block.id]);
+    }
+}
+
+
+
+//make event listener in block
+//-> whenever board repaint, make eventlistener
+function makeClickEvent() {
+    //block click event
+    blocks.forEach(block => block.addEventListener('click', handleClickBlock));          //left click
+    blocks.forEach(block => block.addEventListener('contextmenu', handleContextMenu));   //right click
+}
+
+function removeClickEvent() {
+    blocks.forEach(block => block.removeEventListener('click', handleClickBlock));          //left click
+    blocks.forEach(block => block.removeEventListener('contextmenu', handleContextMenu));   //right click
 }
 
 function init() {
@@ -314,13 +363,3 @@ function init() {
 }
 
 init();
-
-    // 좌클릭 
-    //1) 뒤집어지는 경우
-    //2) 지뢰가 있는 경우 -> 주위 숫자에 따른 지뢰개수를 보여줌
-    //3) 자동을 뒤집어짐 = 주위에 아무것도 없는 경우
-    // blocks[blockId].classList.remove('not-clicked');
-    // blocks[blockId].classList.add('clicked');
-
-    //우클릭 
-    //1) 깃발 그리기 or 없애기 
