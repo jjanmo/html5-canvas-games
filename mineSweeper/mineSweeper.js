@@ -1,8 +1,9 @@
 const difficultySpans = document.querySelectorAll('.difficulty');
 const startButton = document.getElementById('js-start-button');
 const board = document.getElementById('js-board');
-// const modal = document.getElementById('js-modal');
 const recordInModal = document.getElementById('js-record');
+const rankButton = document.getElementById('js-rank-button');
+const rankModal = document.getElementById('js-rank-modal');
 
 let blockObjs = {};     //block obj를 담는 객체 : 블럭 데이터정보 
 let blocks;             //blocks array
@@ -218,7 +219,7 @@ function setMine(totalMine, blockId) {
             mineCount++;
         }
     }
-    console.log(mineLocation);
+    // console.log(mineLocation);
     mineLocation.forEach(ele => blockObjs[ele].getMine = true);
 }
 
@@ -248,7 +249,7 @@ function checkMine(blockId) {
         document.getElementById(blockId).classList.add('step-mine');
         document.getElementById(blockId).classList.remove('not-clicked');
         //game over       
-        console.log(blockObjs);
+        // console.log(blockObjs);
         //모든 지뢰 위치 보여줌 : 현재 상태  + 지뢰 위치 + 잘못된 flag
         for (let blockObj in blockObjs) {
             if (blockObjs[blockObj].getMine) {
@@ -355,7 +356,7 @@ function handleContextMenu(e) {
         //화면 변경
         if (block.className.includes('flag')) {//flag삭제할 때
             flagCount--;
-            console.log(flagCount);
+            // console.log(flagCount);
             if (flagCount < 0) {
                 flagCount++;
                 return;
@@ -365,7 +366,7 @@ function handleContextMenu(e) {
         }
         else {//flag추가할 때
             flagCount++;
-            console.log(flagCount);
+            // console.log(flagCount);
             if (flagCount > totalMine) {
                 flagCount--;
                 return;
@@ -448,17 +449,13 @@ function checkGameEnd() {
     const tmp = flagLocation.concat(mineLocation);
     const checkingSet = new Set(tmp);
     const setSize = checkingSet.size;
-    console.log('첫번째조건', setSize === flagLocation.length && setSize === mineLocation.length);
-
     if (setSize === flagLocation.length && setSize === mineLocation.length) {   //첫번째 조건
         //두번째 조건
-        console.log('ckeck1');
-
-        console.log('두번째조건', Array.from(blocks).filter(block => !block.className.includes('flag')).every(block => !block.className.includes('not-clicked')));
-
+        // console.log('ckeck1');
         if (Array.from(blocks).filter(block => !block.className.includes('flag'))
             .every(block => !block.className.includes('not-clicked'))) {
-            console.log('ckeck2');
+            // console.log('ckeck2');
+
             //stop timer
             clearInterval(timer);
             //show modal
@@ -473,6 +470,9 @@ function checkGameEnd() {
     }
 }
 
+function handleShowRankModal() {
+    rankModal.classList.remove('hidden');
+}
 
 function init() {
     //difficulty event
@@ -481,6 +481,7 @@ function init() {
     document.querySelector('.selected').click();  //시작값 : 처음에 1번만 사용
     //restart button
     startButton.addEventListener('click', paintBlocks);
+    rankButton.addEventListener('click', handleShowRankModal);
 }
 
 init();

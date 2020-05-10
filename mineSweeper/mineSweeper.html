@@ -3,8 +3,13 @@
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link
+            href="https://fonts.googleapis.com/css?family=Balsamiq+Sans|DM+Mono&display=swap"
+            rel="stylesheet"
+        />
         <link rel="stylesheet" href="mineSweeper.css" />
         <link rel="stylesheet" href="modal.css" />
+        <link rel="stylesheet" href="rankModal.css" />
         <title>Mine Sweeper</title>
     </head>
     <body>
@@ -28,6 +33,41 @@
                 </div>
             </div>
         </div>
+        <div class="rank-button" id="js-rank-button">rank</div>
+        <div class="rank-modal hidden" id="js-rank-modal">
+            <div class="rank-modal-content">
+                <div class="rank-modal-exit-button" id="js-rank-modal-exit-button"></div>
+                <div class="select-difficulty">
+                    <span class="rank-modal-difficulty rank-selected" id="rank-modal-basic"
+                        >basic</span
+                    >
+                    <span class="rank-modal-difficulty" id="rank-modal-intermediate"
+                        >intermediate</span
+                    >
+                    <span class="rank-modal-difficulty" id="rank-modal-advanced">advanced</span>
+                </div>
+                <table border="1">
+                    <tr>
+                        <th>RANK</th>
+                        <th>NAME</th>
+                        <th>RECORD</th>
+                        <th>DATE</th>
+                    </tr>
+                    <tr>
+                        <td>1</td>
+                        <td>jjanmo</td>
+                        <td>45</td>
+                        <td>2020.05.10</td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td>jjanmo07</td>
+                        <td>100</td>
+                        <td>2020.05.11</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
         <div class="wrapper">
             <div class="header">
                 <div class="select-difficulty">
@@ -35,7 +75,6 @@
                     <span class="difficulty">intermediate</span>
                     <span class="difficulty">advanced</span>
                     <span class="difficulty">custom</span>
-                    <!-- <span class="rank">rank</span> -->
                 </div>
                 <!-- <div class="custom-config hidden"></div> -->
                 <div class="control-block">
@@ -58,5 +97,6 @@
         </div>
         <script src="mineSweeper.js"></script>
         <script src="modal.js"></script>
+        <script src="rankModal.js"></script>
     </body>
 </html>
