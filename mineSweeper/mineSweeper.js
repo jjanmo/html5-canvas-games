@@ -1,9 +1,13 @@
 const difficultySpans = document.querySelectorAll('.difficulty');
 const startButton = document.getElementById('js-start-button');
 const board = document.getElementById('js-board');
+// const modal = document.getElementById('js-modal');
+const recordInModal = document.getElementById('js-record');
 
 let blockObjs = {};     //block obj를 담는 객체 : 블럭 데이터정보 
 let blocks;             //blocks array
+let mineLocation = [];
+let flagLocation = [];
 let totalMine = 0;
 let flagCount = 0;
 
@@ -12,7 +16,7 @@ let isFirstClick = false;       //첫번째 좌클릭인지 확인
 let isStartedTimer = false;     //우클릭을 하거나 좌클릭을 했을 때 타이머는 한 번만 시작해야함 
 let timerFunc;                  //타이머 함수(이 함수를 호출해야 타이머 시작)
 let timer;                      //타이머(timerFunc 함수를 호출하면 리턴:클로저)
-let record;                     //기록
+let record = 0;                     //기록
 
 //게임 다시 시작 할 때마다 초기화해야 할 것들
 //-> 다시 시작하는 경우 : 1)난이도 클릭시 2) start button 클릭시
@@ -26,6 +30,9 @@ function restartInit() {
     isStartedTimer = false;
     blockObjs = {}; //blockObjs 초기화
     flagCount = 0;
+    mineLocation = [];
+    flagLocation = [];
+    record = 0;
 }
 
 function timerInit() {
@@ -41,6 +48,7 @@ function makeTimer() {
         isStartedTimer = true;
         timer = setInterval(function () {
             second++;
+            record = second;
             renderTimerPanel(second);
             // console.log(second);
         }, 1000)
@@ -199,18 +207,19 @@ function setMine(totalMine, blockId) {
     //첫번째 클릭이 끝난 후 배치 해야함 : 첫번째 클릭칸을 제외
     const blockWidth = Math.sqrt(blocks.length); //board의 한 변 칸수
     let mineCount = 0;
-    const tmpSelArr = [];
+    mineLocation = [];
     while (mineCount < totalMine) {
         const x = Math.floor(Math.random() * blockWidth);
         const y = Math.floor(Math.random() * blockWidth);
         const tmpId = `${x}-${y}`;
         if (tmpId === blockId) continue;  //첫번째 클릭 칸 제외
-        if (!tmpSelArr.includes(tmpId)) {
-            tmpSelArr.push(tmpId);
+        if (!mineLocation.includes(tmpId)) {
+            mineLocation.push(tmpId);
             mineCount++;
         }
     }
-    tmpSelArr.forEach(ele => blockObjs[ele].getMine = true);
+    console.log(mineLocation);
+    mineLocation.forEach(ele => blockObjs[ele].getMine = true);
 }
 
 
@@ -228,6 +237,8 @@ function handleClickBlock(e) {
         }
         checkMine(blockId);
         //console.log(blockObjs);
+        //여기서 게임승리 체크
+        checkGameEnd();
     }
 }
 
@@ -257,7 +268,7 @@ function checkMine(blockId) {
         startButton.className = 'button failure';
         //모든 블록클릭이벤트 중지
         removeClickEvent();
-        //timer 정지 => 그 때 시간 기록
+        //timer 정지
         clearInterval(timer);
     }
     else {//지뢰가 아닌 경우
@@ -296,7 +307,11 @@ function checkAround(blockId) {
 
 function renderBlock(blockId, count) {
     const curBlock = document.getElementById(blockId);
-    if (curBlock.className.includes('flag')) curBlock.classList.remove('flag');
+    if (curBlock.className.includes('flag')) {
+        curBlock.classList.remove('flag');
+        flagCount--;
+        changeMineCountPanel();
+    }
     let value = null;
     //background image class 설정
     switch (count) {
@@ -336,7 +351,6 @@ function handleContextMenu(e) {
     e.preventDefault();
     if (!isStartedTimer) timerFunc();
     const block = e.target;
-    console.log(flagCount);
     if (block.className.includes('not-clicked')) {
         //화면 변경
         if (block.className.includes('flag')) {//flag삭제할 때
@@ -347,6 +361,7 @@ function handleContextMenu(e) {
                 return;
             }
             block.classList.remove('flag');
+            flagLocation.splice(flagLocation.indexOf(block.id), 1);
         }
         else {//flag추가할 때
             flagCount++;
@@ -356,6 +371,7 @@ function handleContextMenu(e) {
                 return;
             }
             block.classList.add('flag');
+            flagLocation.push(block.id);
         }
         //지뢰숫자패널 변경
         changeMineCountPanel();
@@ -363,6 +379,9 @@ function handleContextMenu(e) {
         blockObjs[block.id].isFlagged = block.className.includes('flag') ? true : false;
         // console.log(blockObjs[block.id]);
     }
+    // console.log(flagLocation);
+    //여기서도 게임 끝났는지 체크
+    checkGameEnd()
 }
 
 function changeMineCountPanel() {
@@ -424,6 +443,36 @@ function removeClickEvent() {
     blocks.forEach(block => block.removeEventListener('click', handleClickBlock));          //left click
     blocks.forEach(block => block.removeEventListener('contextmenu', handleContextMenu));   //right click
 }
+
+function checkGameEnd() {
+    const tmp = flagLocation.concat(mineLocation);
+    const checkingSet = new Set(tmp);
+    const setSize = checkingSet.size;
+    console.log('첫번째조건', setSize === flagLocation.length && setSize === mineLocation.length);
+
+    if (setSize === flagLocation.length && setSize === mineLocation.length) {   //첫번째 조건
+        //두번째 조건
+        console.log('ckeck1');
+
+        console.log('두번째조건', Array.from(blocks).filter(block => !block.className.includes('flag')).every(block => !block.className.includes('not-clicked')));
+
+        if (Array.from(blocks).filter(block => !block.className.includes('flag'))
+            .every(block => !block.className.includes('not-clicked'))) {
+            console.log('ckeck2');
+            //stop timer
+            clearInterval(timer);
+            //show modal
+            modal.classList.remove('hidden');
+            //change display
+            startButton.className = 'button success';
+            //send record     
+            recordInModal.textContent = record;
+            //remove click event
+            removeClickEvent();
+        }
+    }
+}
+
 
 function init() {
     //difficulty event

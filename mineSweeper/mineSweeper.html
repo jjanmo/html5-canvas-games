@@ -4,9 +4,30 @@
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <link rel="stylesheet" href="mineSweeper.css" />
+        <link rel="stylesheet" href="modal.css" />
         <title>Mine Sweeper</title>
     </head>
     <body>
+        <div class="modal hidden" id="js-modal">
+            <div class="modal-overlay" id="js-modal-overlay"></div>
+            <div class="modal-content">
+                <div class="exit-button" id="js-exit-button"></div>
+                <div class="finish"></div>
+                <div class="record-box">
+                    <span class="title">your record is ...</span>
+                    <span class="value" id="js-record"></span>
+                    <span class="seconds">seconds 🎯</span>
+                </div>
+                <div class="input-box">
+                    <label class="name" for="js-input-name">name</label>
+                    <input type="text" class="input-name" id="js-input-name" />
+                    <button class="submit" id="js-submit-button">SEND</button>
+                </div>
+                <div class="message">
+                    Send name and record your results
+                </div>
+            </div>
+        </div>
         <div class="wrapper">
             <div class="header">
                 <div class="select-difficulty">
@@ -36,5 +57,6 @@
             <div class="board basic" id="js-board"></div>
         </div>
         <script src="mineSweeper.js"></script>
+        <script src="modal.js"></script>
     </body>
 </html>
