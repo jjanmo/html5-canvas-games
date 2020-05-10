@@ -25,10 +25,15 @@
                 </div>
                 <div class="input-box">
                     <label class="name" for="js-input-name">name</label>
-                    <input type="text" class="input-name" id="js-input-name" />
+                    <input
+                        type="text"
+                        class="input-name"
+                        id="js-input-name"
+                        placeholder="Enter your name..."
+                    />
                     <button class="submit" id="js-submit-button">SEND</button>
                 </div>
-                <div class="message">
+                <div class="message" id="js-message">
                     Send name and record your results
                 </div>
             </div>
@@ -38,34 +43,11 @@
             <div class="rank-modal-content">
                 <div class="rank-modal-exit-button" id="js-rank-modal-exit-button"></div>
                 <div class="select-difficulty">
-                    <span class="rank-modal-difficulty rank-selected" id="rank-modal-basic"
-                        >basic</span
-                    >
-                    <span class="rank-modal-difficulty" id="rank-modal-intermediate"
-                        >intermediate</span
-                    >
-                    <span class="rank-modal-difficulty" id="rank-modal-advanced">advanced</span>
+                    <span class="rank-modal-difficulty rank-selected">basic</span>
+                    <span class="rank-modal-difficulty">intermediate</span>
+                    <span class="rank-modal-difficulty">advanced</span>
                 </div>
-                <table border="1">
-                    <tr>
-                        <th>RANK</th>
-                        <th>NAME</th>
-                        <th>RECORD</th>
-                        <th>DATE</th>
-                    </tr>
-                    <tr>
-                        <td>1</td>
-                        <td>jjanmo</td>
-                        <td>45</td>
-                        <td>2020.05.10</td>
-                    </tr>
-                    <tr>
-                        <td>2</td>
-                        <td>jjanmo07</td>
-                        <td>100</td>
-                        <td>2020.05.11</td>
-                    </tr>
-                </table>
+                <table border="1" id="js-rank-table"></table>
             </div>
         </div>
         <div class="wrapper">

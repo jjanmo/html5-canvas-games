@@ -3,6 +3,7 @@ const modalOverlay = document.getElementById('js-modal-overlay');
 const exitButton = document.getElementById('js-exit-button');
 const inputName = document.getElementById('js-input-name');
 const submitButton = document.getElementById('js-submit-button');
+const msg = document.getElementById('js-message');
 const records = [];
 
 
@@ -14,9 +15,20 @@ function handleExitModal() {
 function handleSubmit(e) {
     const record = document.getElementById('js-record').textContent;
     const name = inputName.value;
-    sendToDB(record, name, difficulty);
-    handleExitModal();
-    document.getElementById('js-input-name').value = '';
+    if (name) {
+        sendToDB(record, name, difficulty);
+        handleExitModal();
+        document.getElementById('js-input-name').value = '';
+    }
+    else {
+        const defaultMsg = msg.textContent;
+        msg.textContent = 'Send your name to keep a record';
+        msg.style.color = '#e74c3c';
+        setTimeout(function () {
+            msg.textContent = defaultMsg;
+            msg.style.color = '#95a5a6';
+        }, 2000)
+    }
 }
 
 function sendToDB(record, name, difficulty) {
@@ -34,7 +46,6 @@ function sendToDB(record, name, difficulty) {
 }
 
 function init() {
-    document.getElementById('js-input-name').focus();
     exitButton.addEventListener('click', handleExitModal);
     modalOverlay.addEventListener('click', handleExitModal);
     submitButton.addEventListener('click', handleSubmit);
