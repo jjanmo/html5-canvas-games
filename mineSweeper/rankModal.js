@@ -3,6 +3,7 @@ const rankModalDifficulty = document.querySelectorAll('.rank-modal-difficulty');
 const rankTable = document.getElementById('js-rank-table');
 const selectedRank = document.querySelector('.rank-selected');
 
+
 function handleExitModal() {
     rankModal.classList.add('hidden');
 
@@ -10,16 +11,12 @@ function handleExitModal() {
 
 function getUsers(difficulty) {
     //get raw list
-
     const recordsStr = localStorage.getItem('records');
-
     const rawRecords = JSON.parse(recordsStr) || [];
     //filter and sort
     const newRecords = rawRecords.filter(record => record.difficulty === difficulty)
         .sort((a, b) => Number(a.record) - Number(b.record));
     return newRecords;
-
-
 }
 
 
@@ -72,10 +69,8 @@ function paintTable(processedRecords) {
 function handleShowTable(e) {
     const target = e.target;
     const selectedDifficulty = target.textContent;
-
     rankModalDifficulty.forEach(ele => ele.classList.remove('rank-selected'));
     target.classList.add('rank-selected');
-
     const processedRecords = getUsers(selectedDifficulty);
     paintTable(processedRecords);
 }

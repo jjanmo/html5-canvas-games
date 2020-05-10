@@ -70,8 +70,39 @@
 }
 
 .custom-config {
+    margin: 2rem 0;
+}
+.custom-config > form {
+    text-align: center;
+}
+.custom-number {
+    width: 50px;
+    height: 20px;
+    outline: none;
+    margin-right: 15px;
+    padding-left: 10px;
+    font-size: 17px;
+    border-radius: 5px;
 }
 
+.update-button {
+    all: unset;
+    font-size: 20px;
+    text-align: center;
+    color: #16a085;
+    border: 1px solid #16a085;
+    border-radius: 5px;
+    padding: 0 6px;
+}
+
+.update-button:hover {
+    background-color: #16a085;
+    color: white;
+}
+
+.update-button:active {
+    transform: scale(0.9);
+}
 .hidden {
     display: hidden;
 }

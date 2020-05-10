@@ -4,7 +4,7 @@ const exitButton = document.getElementById('js-exit-button');
 const inputName = document.getElementById('js-input-name');
 const submitButton = document.getElementById('js-submit-button');
 const msg = document.getElementById('js-message');
-const records = [];
+let records;
 
 
 function handleExitModal() {
@@ -15,10 +15,11 @@ function handleExitModal() {
 function handleSubmit(e) {
     const record = document.getElementById('js-record').textContent;
     const name = inputName.value;
+    console.log(name);
     if (name) {
         sendToDB(record, name, difficulty);
-        handleExitModal();
         document.getElementById('js-input-name').value = '';
+        modal.classList.add('hidden');
     }
     else {
         const defaultMsg = msg.textContent;
@@ -41,11 +42,14 @@ function sendToDB(record, name, difficulty) {
         difficulty,
         date: new Date()
     }
+    console.log(records);
     records.push(userObj);
+    console.log(records);
     localStorage.setItem('records', JSON.stringify(records));
 }
 
 function init() {
+    records = JSON.parse(localStorage.getItem('records')) || [];
     exitButton.addEventListener('click', handleExitModal);
     modalOverlay.addEventListener('click', handleExitModal);
     submitButton.addEventListener('click', handleSubmit);

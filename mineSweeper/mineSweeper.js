@@ -4,6 +4,7 @@ const board = document.getElementById('js-board');
 const recordInModal = document.getElementById('js-record');
 const rankButton = document.getElementById('js-rank-button');
 const rankModal = document.getElementById('js-rank-modal');
+const customConfig = document.querySelector('.custom-config');
 
 let blockObjs = {};     //block obj를 담는 객체 : 블럭 데이터정보 
 let blocks;             //blocks array
@@ -108,7 +109,13 @@ function handleSelectDifficulty(e) {
     difficultySpans.forEach(ele => ele.classList.remove('selected'));
     difficultyEle.classList.add('selected');
     difficulty = difficultyEle.textContent
-    paintBlocks();
+    if (difficulty === 'custom') {
+        customConfig.classList.remove('hidden');
+    }
+    else {
+        customConfig.classList.add('hidden');
+        paintBlocks();
+    }
 }
 
 //block

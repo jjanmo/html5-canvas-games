@@ -58,7 +58,31 @@
                     <span class="difficulty">advanced</span>
                     <span class="difficulty">custom</span>
                 </div>
-                <!-- <div class="custom-config hidden"></div> -->
+                <div class="custom-config">
+                    <form action="#">
+                        <label for="js-width">LENGTH</label>
+                        <input
+                            type="number"
+                            class="custom-number"
+                            id="js-length"
+                            value="0"
+                            min="1"
+                            max="50"
+                        />
+                        <label for="js-mine-count">MINE</label>
+                        <input
+                            type="number"
+                            class="custom-number"
+                            id="js-mine-count"
+                            value="0"
+                            min="1"
+                            max="500"
+                        />
+                        <button class="update-button" id="js-update-button">
+                            UPDATE
+                        </button>
+                    </form>
+                </div>
                 <div class="control-block">
                     <div class="mine-count panel" id="js-count-panel">
                         <div class="number"></div>
