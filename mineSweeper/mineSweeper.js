@@ -5,6 +5,7 @@ const recordInModal = document.getElementById('js-record');
 const rankButton = document.getElementById('js-rank-button');
 const rankModal = document.getElementById('js-rank-modal');
 const customConfig = document.querySelector('.custom-config');
+const updateButton = document.getElementById('js-update-button');
 
 let blockObjs = {};     //block obj를 담는 객체 : 블럭 데이터정보 
 let blocks;             //blocks array
@@ -18,7 +19,9 @@ let isFirstClick = false;       //첫번째 좌클릭인지 확인
 let isStartedTimer = false;     //우클릭을 하거나 좌클릭을 했을 때 타이머는 한 번만 시작해야함 
 let timerFunc;                  //타이머 함수(이 함수를 호출해야 타이머 시작)
 let timer;                      //타이머(timerFunc 함수를 호출하면 리턴:클로저)
-let record = 0;                     //기록
+let record = 0;                 //기록
+let customLength = 0;
+
 
 //게임 다시 시작 할 때마다 초기화해야 할 것들
 //-> 다시 시작하는 경우 : 1)난이도 클릭시 2) start button 클릭시
@@ -136,16 +139,23 @@ function paintBlocks() {
             totalMine = 100;
             break;
         default: //custom
+            console.log(customLength);
+            fragment = makeBlocks(customLength);
             break;
     }
     renderMineCountPanel(totalMine);
-    board.className = `board ${difficulty}`;
+    if (difficulty === 'custom') {
+        board.style.gridTemplateColumns = `repeat(${customLength},28px)`;
+    }
+    else {
+        board.className = `board ${difficulty}`;
+    }
     board.innerHTML = '';
     board.append(fragment);
 
     blocks = document.querySelectorAll('.block');
     makeClickEvent(blocks);
-    // console.log(blocks, blockObjs);
+    console.log(blocks, blockObjs);
 }
 
 function makeBlocks(length) {
@@ -164,7 +174,7 @@ function makeBlocks(length) {
         // div.dataset.index = i;          //screen - element interaction 
         fragment.append(div);
     }
-    // console.log(blockObjs);
+    console.log(blockObjs);
     return fragment;
 }
 
@@ -190,9 +200,53 @@ function renderMineCountPanel(totalMine) {
             numbers[2].classList.add('zero');
             break;
         default:
+            translateNumberToClassName(numbers, totalMine);
             break;
     }
 }
+
+function translateNumberToClassName(numbers, totalMine) {
+    const totalMineStr =
+        totalMine < 100 ? (totalMine < 10 ? '00' + totalMine : '0' + totalMine) : totalMine.toString();
+    const totalMineArr = totalMineStr.split('');
+    totalMineArr.forEach((digit, idx) => {
+        let name = '';
+        switch (digit) {
+            case '1':
+                name = 'one';
+                break;
+            case '2':
+                name = 'two';
+                break;
+            case '3':
+                name = 'three';
+                break;
+            case '4':
+                name = 'four';
+                break;
+            case '5':
+                name = 'five';
+                break;
+            case '6':
+                name = 'six';
+                break;
+            case '7':
+                name = 'seven';
+                break;
+            case '8':
+                name = 'eight';
+                break;
+            case '9':
+                name = 'nine';
+                break;
+            default:
+                name = 'zero';
+                break;
+        }
+        numbers[idx].className = `number ${name}`;
+    });
+}
+
 
 //게임 관련 object 생성
 function setBlockObj(x, y) {
@@ -465,8 +519,8 @@ function checkGameEnd() {
 
             //stop timer
             clearInterval(timer);
-            //show modal
-            modal.classList.remove('hidden');
+            //show modal : custom일 때는 모달창 안뜸
+            if (difficulty !== 'custom') modal.classList.remove('hidden');
             //change display
             startButton.className = 'button success';
             //send record     
@@ -481,6 +535,41 @@ function handleShowRankModal() {
     rankModal.classList.remove('hidden');
 }
 
+//custom game
+function handleCustomGame(e) {
+    e.preventDefault();
+    const length = Number(document.getElementById('js-length').value);
+    const mineCount = Number(document.getElementById('js-mine-count').value);
+    const warning = document.querySelector('.warning');
+    if (length === 0 || mineCount === 0 || length > 50 || mineCount > 500) {
+        warning.classList.remove('hidden');
+        warning.textContent = 'Enter number again : 0 < length <= 50 and  0 < mine <= 500';
+        setTimeout(function () {
+            warning.classList.add('hidden');
+        }, 2000);
+    }
+    else if (mineCount >= length * length) {
+        warning.classList.remove('hidden');
+        warning.textContent = 'Too much mine count';
+        setTimeout(function () {
+            warning.classList.add('hidden');
+        }, 2000);
+
+    }
+    else {
+        console.log(length, mineCount);
+        customLength = length;
+        totalMine = mineCount;
+        paintBlocks();
+    }
+    //초기화
+    document.getElementById('js-length').value = 1;
+    document.getElementById('js-mine-count').value = 1;
+}
+
+
+
+
 function init() {
     //difficulty event
     difficultySpans.forEach(ele => ele.addEventListener('click', handleSelectDifficulty));
@@ -489,6 +578,8 @@ function init() {
     //restart button
     startButton.addEventListener('click', paintBlocks);
     rankButton.addEventListener('click', handleShowRankModal);
+    //custom update button
+    updateButton.addEventListener('click', handleCustomGame)
 }
 
 init();

@@ -3,10 +3,11 @@ const rankModalDifficulty = document.querySelectorAll('.rank-modal-difficulty');
 const rankTable = document.getElementById('js-rank-table');
 const selectedRank = document.querySelector('.rank-selected');
 
-
 function handleExitModal() {
     rankModal.classList.add('hidden');
-
+    //초기화 : 
+    rankModalDifficulty.forEach(ele => ele.classList.remove('rank-selected'));
+    rankModalDifficulty[0].click();
 }
 
 function getUsers(difficulty) {
