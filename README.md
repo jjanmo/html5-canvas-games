@@ -34,6 +34,6 @@
 
 ## Mine Sweeper
 
-> [GITHUB](https://github.com/jjanmo/jjanmo.github.io-minesweeper)
+> [Repo](https://github.com/jjanmo/jjanmo.github.io-minesweeper)
 
 > [DEMO](https://jjanmo.github.io/jjanmo.github.io-minesweeper/)
