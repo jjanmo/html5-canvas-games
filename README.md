@@ -14,6 +14,14 @@
 
     > 숫자야구게임 안에서 `background`로 사용한 `baseball field` 부분은 CODEPEN의 [여기](https://codepen.io/AniG2017/pen/dZYeLQ)를 참고하였습니다.
 
+## TicTacToe ver1.0
+
+> 1/2인용 틱택톡(인공지능 X)
+
+### Features
+
+-   [] 1인 혹은 2역이 가능한 게임
+
 ## Memory Game
 
 > 카드 짝맞추기 게임
@@ -37,3 +45,9 @@
 > [REPO](https://github.com/jjanmo/jjanmo.github.io-minesweeper)
 
 > [DEMO](https://jjanmo.github.io/jjanmo.github.io-minesweeper/)
+
+## Tetris ver1.0
+
+> table를 사용한 테트리스 게임
+
+> [REPO](https://github.com/jjanmo/jjanmo.github.io-tetris_ver1.0)
