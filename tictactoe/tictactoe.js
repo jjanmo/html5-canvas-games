@@ -184,6 +184,9 @@ function handleRestart(e) {
     blocks.forEach(ele => ele.textContent = '');
     playersBtn.forEach(ele => ele.addEventListener('click', handlePlayer));
     blocks.forEach(ele => ele.addEventListener('click', handleClickBlock));
+    blocks.forEach(ele => ele.className = 'block');
+    playersBtn.forEach(ele => ele.className = 'player');
+    playersBtn[0].classList.add('selected');
 }
 
 function init() {
