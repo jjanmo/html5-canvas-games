@@ -24,23 +24,38 @@ body {
 }
 
 .choose {
-    width: 50%;
+    width: 100%;
     display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
-.x,
-.o {
+.selMsg {
+    font-size: 1.2rem;
+    color: #e67e22;
+    width: 50%;
+    margin: 0 20px;
+    text-transform: uppercase;
+}
+
+.choose > div:first-child {
+    text-align: right;
+}
+
+.player {
     width: 50%;
     text-align: center;
-    font-size: 2rem;
+    font-size: 1.5rem;
     border: 1px solid rgba(0, 0, 0, 0.4);
     border-radius: 5px;
     margin: 5px;
     cursor: pointer;
+    text-transform: uppercase;
+    padding: 10px 5px;
 }
 
 .msg {
-    margin: 1.5rem 0;
+    margin-top: 1.5rem;
     font-size: 1.2rem;
     text-transform: uppercase;
 }
@@ -51,13 +66,28 @@ body {
     grid-template-rows: repeat(3, 1fr);
     background-color: #1abc9c;
     cursor: pointer;
+    margin: 2rem 0;
 }
 
 .block {
-    width: 80px;
-    height: 80px;
-    border: 5px solid rgba(0, 0, 0, 0.3);
+    width: 90px;
+    height: 90px;
+    border: 5px solid rgba(0, 0, 0, 0.2);
     box-sizing: border-box;
+    text-align: center;
+    font-size: 70px;
+    font-weight: 600;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    line-height: 1;
+    text-transform: uppercase;
+}
+
+.x {
+    color: #545454;
+}
+
+.o {
+    color: #f2ebd3;
 }
 
 .block:nth-child(-n + 3) {
@@ -79,17 +109,29 @@ body {
     align-items: center;
     font-size: 1rem;
     text-transform: uppercase;
-    margin: 0.8rem 0;
     cursor: pointer;
     padding: 5px 10px;
     border: 1px solid rgba(0, 0, 0, 0.3);
     border-radius: 5px;
+    transition: all 0.1s ease-in-out;
+    margin-bottom: 10px;
 }
 
 .restart-button:hover {
     background-color: #eee;
 }
+.restart-button:active {
+    transform: scale(1.02);
+}
 
 .restart-button > button {
     all: unset;
+}
+
+.selected {
+    box-shadow: 0 5px rgba(22, 160, 133, 0.6);
+}
+
+.hidden {
+    opacity: 0;
 }

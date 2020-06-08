@@ -13,22 +13,24 @@
     <body>
         <div class="wrapper">
             <div class="choose">
-                <div class="x">x</div>
-                <div class="o">o</div>
+                <div class="selMsg" id="selX">you are x</div>
+                <div class="player selected" id="x">x</div>
+                <div class="player" id="o">o</div>
+                <div class="selMsg hidden" id="selO">you are o</div>
             </div>
-            <div class="msg">click board or choose player</div>
+            <div class="msg" id="js-msg">choose player or start</div>
             <div class="board">
-                <div class="block" data-id="00"></div>
-                <div class="block" data-id="01"></div>
-                <div class="block" data-id="02"></div>
-                <div class="block" data-id="10"></div>
-                <div class="block" data-id="11"></div>
-                <div class="block" data-id="12"></div>
-                <div class="block" data-id="20"></div>
-                <div class="block" data-id="21"></div>
-                <div class="block" data-id="22"></div>
+                <div class="block" id="00"></div>
+                <div class="block" id="01"></div>
+                <div class="block" id="02"></div>
+                <div class="block" id="10"></div>
+                <div class="block" id="11"></div>
+                <div class="block" id="12"></div>
+                <div class="block" id="20"></div>
+                <div class="block" id="21"></div>
+                <div class="block" id="22"></div>
             </div>
-            <div class="restart-button">
+            <div class="restart-button" id="js-restart-button">
                 <button>restart</button>
             </div>
         </div>
