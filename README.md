@@ -20,6 +20,7 @@
 
 > [구글 틱택토](https://www.google.com/search?q=%ED%8B%B1%ED%83%9D%ED%86%A0&oq=xlrxorx&aqs=chrome.1.69i57j0l7.2666j0j1&sourceid=chrome&ie=UTF-8) 의 UI를 클론 코딩 하였습니다.
  
+> [DEMO](https://codepen.io/jjanmo/pen/dyGYBOv) 
 
 ## Memory Game
 
