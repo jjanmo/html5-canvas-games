@@ -11,7 +11,6 @@
     overflow: auto;
     background-color: rgba(0, 0, 0, 0.5);
 }
-
 .modal-content {
     background-color: #eee;
     text-align: center;
@@ -23,7 +22,6 @@
     animation-name: modalopen;
     animation-duration: var(--modal--duration);
 }
-
 .modal-content h2 {
     margin: 10px;
     font-size: 40px;
@@ -32,11 +30,9 @@
     margin: 10px;
     font-size: 30px;
 }
-
 .hidden {
     display: none;
 }
-
 @keyframes modalopen {
     from {
         opacity: 0;

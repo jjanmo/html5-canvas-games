@@ -3,11 +3,9 @@
     margin: 0;
     user-select: none;
 }
-
 body {
-    font-family: "Gamja Flower", cursive;
+    font-family: 'Gamja Flower', cursive;
 }
-
 .wrapper {
     background-color: #dfe6e9;
     width: 700px;
@@ -19,24 +17,19 @@ body {
     display: flex;
     flex-direction: column;
 }
-
 h1 {
     color: #747d8c;
     text-align: center;
     font-size: 4rem;
 }
-
 .button-container {
     margin: 0 auto 0;
     width: 90%;
     height: 10%;
     padding: 10px;
     font-size: 35px;
-    /* display: grid;
-    grid-template-columns: repeat(2, 1fr); */
     text-align: center;
 }
-
 .restart-button {
     all: unset;
     width: 180px;
@@ -50,18 +43,15 @@ h1 {
     background-color: #0984e3;
     line-height: 20px;
 }
-
 .restart-button:active {
     transform: scale(0.9);
     transition: all 0.1s ease-in-out;
 }
-
 .score-container {
     width: 90%;
     text-align: center;
     margin: 0 auto 0;
 }
-
 .score-board {
     width: 250px;
     font-size: 80px;
@@ -71,14 +61,12 @@ h1 {
     position: relative;
     color: white;
 }
-
 .badge {
     font-size: 30px;
     border-radius: 5px;
     padding: 0 5px 0;
     color: white;
 }
-
 #user-label {
     position: absolute;
     background-color: #ff7675;
@@ -95,14 +83,9 @@ h1 {
 .score-container > div:last-child {
     color: #747d8c;
 }
-/* .score-board:last-child {
-    color: #747d8c;
-} */
-
 .chose-container {
     position: relative;
 }
-
 .chose-container h2 {
     text-align: center;
     font-size: 40px;
@@ -116,11 +99,9 @@ h1 {
     grid-gap: 2rem;
     text-align: center;
 }
-
 .chose {
     width: 146px;
     height: 146px;
-    /* border: solid #636e72 4px; */
     margin: 20px;
     border-radius: 73px;
     cursor: pointer;
@@ -129,15 +110,12 @@ h1 {
     line-height: 20px;
     margin: 20px auto;
 }
-
 .icon {
     vertical-align: bottom;
 }
-
 .icon:hover {
     color: #576574;
 }
-
 .icon:active {
     transform: scale(0.9);
     transition: all 0.1s ease-in-out;
