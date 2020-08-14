@@ -6,7 +6,7 @@
 
 body {
     color: white;
-    font-family: "Jua", sans-serif;
+    font-family: 'Jua', sans-serif;
 }
 .wrapper {
     width: 500px;
@@ -38,7 +38,6 @@ h1 {
     vertical-align: center;
     line-height: 38px;
 }
-
 .button:hover {
     opacity: 0.8;
 }
@@ -46,7 +45,6 @@ h1 {
     transform: scale(0.9);
     transition: all 0.1s ease-in-out;
 }
-
 .startBtn {
     background-color: #2e86c1;
 }
@@ -69,19 +67,14 @@ h1 {
     border-radius: 10px;
     background-color: #2c3e50;
 }
-
 .scoreContainer {
-    /* background-color: #27ae60; */
     width: 80%;
     height: 100px;
-    /* border: 1px solid white; */
     margin: auto;
 }
-
 .progressbarDiv {
     margin: 20px 0 30px;
 }
-
 .progressbar {
     width: 80%;
     height: 20px;
@@ -89,7 +82,6 @@ h1 {
     margin: auto;
     border-radius: 20px;
 }
-
 .progressbar > div {
     width: 0;
     height: 100%;
@@ -97,11 +89,9 @@ h1 {
     animation: progressBar 2s ease-in-out;
     border-radius: 20px;
 }
-
 .scoreDiv {
     margin: 10px 0 10px;
 }
-
 .scoreTd {
     display: inline-block;
     width: 150px;
@@ -111,48 +101,41 @@ h1 {
     font-size: 30px;
     border-radius: 5px;
 }
-
 .right:before {
-    content: "O";
+    content: 'O';
     color: #fa983a;
     font-size: 35px;
 }
 .wrong:before {
-    content: "X";
+    content: 'X';
     color: #82ccdd;
     font-size: 35px;
 }
-
 .quizContainer {
     width: 80%;
     height: 40%;
-    /* background-color: #d35400; */
     margin: auto;
     display: flex;
     align-items: center;
     justify-content: center;
     flex-direction: column;
 }
-
 .before {
     color: #fad390;
     font-size: 30px;
 }
-
 .problem {
     font-size: 45px;
     text-align: center;
 }
 .answer {
     width: 200px;
-    /* padding: 10px; */
     background-color: transparent;
     border-bottom: solid 3px white;
     outline: none;
     font-size: 30px;
     text-align: center;
     color: white;
-    /* margin-top: 5px; */
 }
 .resultContainer {
     width: 80%;
@@ -161,14 +144,12 @@ h1 {
     padding-bottom: 30px;
     font-size: 30px;
 }
-
 .rightColor {
     color: #27ae60;
 }
 .wrongColor {
     color: #eb2f06;
 }
-
 .hide {
     display: none;
 }
