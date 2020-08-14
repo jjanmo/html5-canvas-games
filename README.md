@@ -22,6 +22,13 @@
  
 > [DEMO](https://codepen.io/jjanmo/pen/dyGYBOv) 
 
+## TicTacToe ver2.0
+> Play tictactoe with Kakaofriends
+
+> [REPO](https://github.com/jjanmo/jjanmo.github.io-kakao-tictactoe)
+
+> [DEMO](https://jjanmo.github.io/jjanmo.github.io-kakao-tictactoe/)
+
 ## Memory Game
 
 > 카드 짝맞추기 게임
