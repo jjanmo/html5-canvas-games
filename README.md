@@ -34,7 +34,7 @@
 
 > [REPO](https://github.com/jjanmo/jjanmo.github.io-memorygame)
 
-> [DEMO](https://github.com/jjanmo/jjanmo.github.io-memorygame/)
+> [DEMO](https://jjanmo.github.io/jjanmo.github.io-memorygame/)
 
 ## Mine Sweeper
 
