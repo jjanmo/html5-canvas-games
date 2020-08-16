@@ -52,9 +52,3 @@
 > [REPO](https://github.com/jjanmo/jjanmo.github.io-minesweeper)
 
 > [DEMO](https://jjanmo.github.io/jjanmo.github.io-minesweeper/)
-
-## Tetris ver1.0
-
-> table를 사용한 테트리스 게임
-
-> [REPO](https://github.com/jjanmo/jjanmo.github.io-tetris_ver1.0)
