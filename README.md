@@ -1,43 +1,23 @@
-# Make Game Using Vanilla JavaScript
+# Javascript Games
 
-## 구구단 퀴즈
+> `HTML Canvas`를 이용한 자바스크립트 게임을 만듭니다.
 
-- [DEMO](https://codepen.io/jjanmo/pen/GRgMBRp?editors=0010)
+> with [HTML5 Game Engines](https://html5gameengine.com/)
 
-## 가위바위보
+> > [바닐라 자바스크립트를 통한 고전게임 만들기](./archive/OLD_README.md)의 업그레이드 버전
 
-- [DEMO](https://codepen.io/jjanmo/pen/abOogBM)
+# Contents
 
-## 숫자야구게임
+- 강의 📺
 
-- [DEMO](https://codepen.io/jjanmo/pen/WNvrGex)
+  - [ ] [Vampire Survivor Clone](https://www.inflearn.com/course/phaser-%EA%B2%8C%EC%9E%84-%EC%A0%9C%EC%9E%91-%EB%B1%80%ED%8C%8C%EC%9D%B4%EC%96%B4-%EC%84%9C%EB%B0%94%EC%9D%B4%EB%B2%8C/dashboard)
 
-  > 숫자야구게임 안에서 `background`로 사용한 `baseball field` 부분은 CODEPEN의 [여기](https://codepen.io/AniG2017/pen/dZYeLQ)를 참고하였습니다.
+    > using Phaser3
 
-## TicTacToe ver1.0
+  - [ ] [Shooter Game](https://www.udemy.com/course/javascript-games-101/)
 
-> 인공지능이 없는 틱택토
+    > using HTML5 canvas
 
-> [구글 틱택토](https://www.google.com/search?q=%ED%8B%B1%ED%83%9D%ED%86%A0&oq=xlrxorx&aqs=chrome.1.69i57j0l7.2666j0j1&sourceid=chrome&ie=UTF-8) 의 UI를 클론 코딩 하였습니다.
+  - [ ] [Multiplayer Game](https://www.youtube.com/playlist?list=PLpPnRKq7eNW3or1H5QmYHJfrJ5els5t6B)
 
-> [DEMO](https://codepen.io/jjanmo/pen/dyGYBOv)
-
-## TicTacToe ver2.0
-
-> Play tictactoe with Kakaofriends
-
-> [REPO](https://github.com/jjanmo/jjanmo.github.io-kakao-tictactoe)
-
-> [DEMO](https://jjanmo.github.io/jjanmo.github.io-kakao-tictactoe/)
-
-## Memory Game
-
-> [REPO](https://github.com/jjanmo/jjanmo.github.io-memorygame)
-
-> [DEMO](https://jjanmo.github.io/jjanmo.github.io-memorygame/)
-
-## Mine Sweeper
-
-> [REPO](https://github.com/jjanmo/jjanmo.github.io-minesweeper)
-
-> [DEMO](https://jjanmo.github.io/jjanmo.github.io-minesweeper/)
+    > using HTML5 canvas & Socket
