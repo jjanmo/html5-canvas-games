@@ -1,5 +1,6 @@
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 const path = require('path');
 
 const BASE_ENTRY_URL = './src/public';
@@ -9,6 +10,7 @@ module.exports = {
   entry: {
     home: `${BASE_ENTRY_URL}/home/app.js`,
     vampire: `${BASE_ENTRY_URL}/vampire/app.js`,
+    first: `${BASE_ENTRY_URL}/first/app.js`,
   },
   plugins: [
     new HtmlWebpackPlugin({
@@ -21,8 +23,21 @@ module.exports = {
       template: `${BASE_VIEWS_URL}/vampire.html`,
       chunks: ['vampire'],
     }),
+    new HtmlWebpackPlugin({
+      filename: 'first.html',
+      template: `${BASE_VIEWS_URL}/first.html`,
+      chunks: ['first'],
+    }),
     new MiniCssExtractPlugin({
       filename: '[name].bundle.css',
+    }),
+    new CopyWebpackPlugin({
+      patterns: [
+        {
+          from: './src/public/assets',
+          to: 'assets',
+        },
+      ],
     }),
   ],
   output: {
@@ -42,6 +57,14 @@ module.exports = {
       {
         test: /\.css$/,
         use: [MiniCssExtractPlugin.loader, 'css-loader'],
+      },
+      {
+        test: /\.(jpg|jpeg|png|svg|gif)$/i,
+        type: 'assets',
+      },
+      {
+        test: /\.(woff|woff2|eot|ttf|otf)$/i,
+        type: 'assets',
       },
     ],
   },
