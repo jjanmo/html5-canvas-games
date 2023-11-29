@@ -10,7 +10,6 @@ module.exports = {
   entry: {
     home: `${BASE_ENTRY_URL}/home/app.js`,
     vampire: `${BASE_ENTRY_URL}/vampire/app.js`,
-    first: `${BASE_ENTRY_URL}/first/app.js`,
   },
   plugins: [
     new HtmlWebpackPlugin({
@@ -22,11 +21,6 @@ module.exports = {
       filename: 'vampire.html',
       template: `${BASE_VIEWS_URL}/vampire.html`,
       chunks: ['vampire'],
-    }),
-    new HtmlWebpackPlugin({
-      filename: 'first.html',
-      template: `${BASE_VIEWS_URL}/first.html`,
-      chunks: ['first'],
     }),
     new MiniCssExtractPlugin({
       filename: '[name].bundle.css',
