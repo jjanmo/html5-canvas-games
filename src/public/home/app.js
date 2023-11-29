@@ -10,7 +10,7 @@ cards.forEach((card) => {
     const mouseX = clientX - left;
     const mouseY = clientY - top;
 
-    cardElem.style.background = `radial-gradient(circle at ${mouseX}px ${mouseY}px, rgb(116, 185, 255) 0%, rgba(116,185,255,0) calc(0% + 200px)  )`;
+    cardElem.style.background = `radial-gradient(circle at ${mouseX}px ${mouseY}px, rgb(116, 185, 255) 0%, rgba(116,185,255,0) calc(0% + 180px)  )`;
   });
 
   card.addEventListener('mouseout', (e) => {
