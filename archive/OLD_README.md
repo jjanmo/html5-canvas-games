@@ -2,11 +2,12 @@
 
 > 예비 개발자(?) 시절에 `바닐라 자바스크립트`로 만들었던 고전 게임들
 
-> 호스팅 없이 `codepen` 공개하거나 `github page`로 배포
+> 아래는 `codepen` 공개하거나 `github page`로 호스팅했던 것들이다.
 
-## Content
-
-- [구구단 퀴즈](https://codepen.io/jjanmo/pen/GRgMBRp?editors=0010)
+<details>
+  <summary>만들어 본 게임들</summary>
+  
+  - [구구단 퀴즈](https://codepen.io/jjanmo/pen/GRgMBRp?editors=0010)
 
 - [가위바위보](https://codepen.io/jjanmo/pen/abOogBM)
 
@@ -26,10 +27,12 @@
 
 - [Mine Sweeper : 지뢰찾기](<(https://jjanmo.github.io/jjanmo.github.io-minesweeper/)>)
 
-  > [REPO](https://github.com/jjanmo/jjanmo.github.io-minesweeper)
+      > [REPO](https://github.com/jjanmo/jjanmo.github.io-minesweeper)
+
+  </details>
 
 ## 정리
 
 > 2023.11.25
 
-그 당시 단순히 게임을 만들기보다 추가적인 기능(레벨 등)에 대한 고민들의 흔적들과 허접한 코드들이 보인다. 지금은 좀 더 나은 코드를 작성할 수 있을까. UI/UX적으로도 매우 안좋다는 느낌도 많이 든다. 그저 이것 저것 생각나는대로 추가했고, 그런 부분에 대한 고민도 없었기때문에... 이걸 보니 리액트나 뷰로 고전게임을 다시 만들어보고 싶다.
+그 당시 단순히 게임을 만들기보다 추가적인 기능(레벨 등)에 대한 고민들의 흔적들과 허접한 코드들이 보인다. 지금은 좀 더 나은 코드를 작성할 수 있을까. UI/UX적으로도 매우 안좋다는 느낌도 많이 든다. 그저 이것 저것 생각나는대로 추가했고, 그런 부분에 대한 고민도 없었기 때문이라고 생각한다. 위 게임외에도 만들어보려고 했는지 만들지 못했던 게임들도 많다. 위에 게임들을 업그레이드하여 다시 만들어보고 다른 게임들에도 도전해봐야겠다. To Be Continue [Here](https://github.com/jjanmo/react-games) 🚀
