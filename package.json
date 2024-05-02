@@ -9,7 +9,7 @@
     "dev": "concurrently \"yarn run dev:server\" \"yarn run dev:client\""
   },
   "dependencies": {
-    "ejs": "^3.1.9",
+    "ejs": "^3.1.10",
     "express": "^4.18.2",
     "phaser": "^3.70.0"
   },
